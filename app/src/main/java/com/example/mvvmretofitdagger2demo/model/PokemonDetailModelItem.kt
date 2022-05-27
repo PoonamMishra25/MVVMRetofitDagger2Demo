@@ -1,11 +1,11 @@
 package com.example.mvvmretofitdagger2demo.model
 
-import androidx.room.Entity
+
 
 
 class PokemonDetailModel : ArrayList<PokemonDetailModelItem>()
 
-//@Entity(tableName = "pokemon_details")
+
 data class PokemonDetailModelItem(
    val abilities: Abilities,
     val description: String,

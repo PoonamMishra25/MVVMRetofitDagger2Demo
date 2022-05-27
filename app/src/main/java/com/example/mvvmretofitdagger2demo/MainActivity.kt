@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
     lateinit var mainViewModel: MainViewModel
-lateinit var list:ArrayList<PokemonDetailModelItem>
+lateinit var list:ArrayList<String>
     @Inject
     lateinit var mainViewModelFactory: MainViewModelFactory
 
@@ -32,10 +32,15 @@ lateinit var imageView: ImageView
 
         mainViewModel=ViewModelProvider(this,mainViewModelFactory).get(MainViewModel::class.java)
         mainViewModel.pokemonLiveData.observe(this, Observer {
-          list.add(it)
-            textview.text=it.name
+          list.addAll(it.types)
+
+            val commaSeperatedString =list.joinToString { it -> "\'${it}\'" }
+
+            textview.text="Name- "+it.name+"\n"+"Type-  "+commaSeperatedString+"\n"+
+                    "Description- "+it.description
+
             Glide.with(this).load(it.sprite).into(imageView)
         })
-        println("***"+list.toString())
+       // println("***"+list.toString())
     }
 }

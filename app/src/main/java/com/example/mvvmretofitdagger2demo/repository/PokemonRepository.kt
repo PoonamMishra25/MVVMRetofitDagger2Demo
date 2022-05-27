@@ -1,6 +1,6 @@
 package com.example.mvvmretofitdagger2demo.repository
 
-import android.util.Log
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.mvvmretofitdagger2demo.model.PokemonDetailModelItem
@@ -16,9 +16,7 @@ class PokemonRepository @Inject constructor(private val apiService: ApiService) 
     suspend fun getPokemon() {
         val result = apiService.getPokemon()
         if (result.isSuccessful && result.body() != null) {
-            _pokemon.postValue(result.body()!!.get(0))
-        }else{
-            Log.d("***8","Failed response")
+            _pokemon.postValue(result.body()!![0])
         }
 
     }

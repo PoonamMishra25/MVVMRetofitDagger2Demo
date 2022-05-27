@@ -12,7 +12,6 @@ class PokemonApplication: Application() {
 
     override fun onCreate() {
         super.onCreate()
-       // applicationComponent= Dagge
        applicationComponent = DaggerApplicationComponent.builder().build()
     }
 }
