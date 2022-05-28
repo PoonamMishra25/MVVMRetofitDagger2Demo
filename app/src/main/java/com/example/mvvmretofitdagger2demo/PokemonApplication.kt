@@ -5,14 +5,16 @@ import android.app.Application
 import com.example.mvvmretofitdagger2demo.di.ApplicationComponent
 import com.example.mvvmretofitdagger2demo.di.DaggerApplicationComponent
 
+import com.example.mvvmretofitdagger2demo.repository.PokemonRepository
+
+
 
 class PokemonApplication: Application() {
 
     lateinit var applicationComponent: ApplicationComponent
-
     override fun onCreate() {
         super.onCreate()
-       // applicationComponent= Dagge
-       applicationComponent = DaggerApplicationComponent.builder().build()
+
+        applicationComponent = DaggerApplicationComponent.factory().create(this)
     }
 }
