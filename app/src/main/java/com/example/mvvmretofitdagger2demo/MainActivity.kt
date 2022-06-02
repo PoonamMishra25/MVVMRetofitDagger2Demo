@@ -15,27 +15,26 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
     lateinit var mainViewModel: MainViewModel
-lateinit var list:ArrayList<PokemonDetailModelItem>
+    lateinit var list: ArrayList<PokemonDetailModelItem>
+
     @Inject
     lateinit var mainViewModelFactory: MainViewModelFactory
 
-    private val textview:TextView
-    get() = findViewById(R.id.textview)
-lateinit var imageView: ImageView
-    override fun onCreate(savedInstanceState: Bundle?)
-    {
+    //    private val textview:TextView
+//    get() = findViewById(R.id.textview)
+    lateinit var imageView: ImageView
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        imageView=findViewById(R.id.imageView)
-        list= ArrayList()
+        //imageView=findViewById(R.id.imageView)
+        list = ArrayList()
         (application as PokemonApplication).applicationComponent.inject(this)
 
-        mainViewModel=ViewModelProvider(this,mainViewModelFactory).get(MainViewModel::class.java)
-        mainViewModel.pokemonLiveData.observe(this, Observer {
-          list.add(it)
-            textview.text=it.name
-            Glide.with(this).load(it.sprite).into(imageView)
-        })
-        println("***"+list.toString())
+        mainViewModel = ViewModelProvider(this, mainViewModelFactory).get(MainViewModel::class.java)
+//        mainViewModel.pokemonLiveData.observe(this, Observer {
+//            list.add(it)
+//            textview.text=it.name
+//            Glide.with(this).load(it.sprite).into(imageView)
+      //  })
     }
 }

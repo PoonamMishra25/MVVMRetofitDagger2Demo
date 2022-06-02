@@ -10,6 +10,8 @@ import com.example.mvvmretofitdagger2demo.model.PokemonDb
 abstract class PokemonDatabase :RoomDatabase() {
 
     abstract fun pokemonDao(): PokemonDao
+  //  abstract fun getSpecificPokemon(): List<PokemonDb>
+
 }
 //
 //    companion object {

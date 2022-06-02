@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/blankFragment">
+
+    <fragment
+        android:id="@+id/blankFragment"
+        android:name="com.example.mvvmretofitdagger2demo.BlankFragment"
+        android:label="fragment_blank"
+        tools:layout="@layout/fragment_blank" >
+        <action
+            android:id="@+id/action_blankFragment_to_listOfPokemons"
+            app:destination="@id/listOfPokemons" />
+    </fragment>
+    <fragment
+        android:id="@+id/listOfPokemons"
+        android:name="com.example.mvvmretofitdagger2demo.ListOfPokemons"
+        android:label="fragment_list_of_pokemons"
+        tools:layout="@layout/fragment_list_of_pokemons" >
+        <action
+            android:id="@+id/action_listOfPokemons_to_detailsOfPokemon"
+            app:destination="@id/detailsOfPokemon" />
+        <action
+            android:id="@+id/action_listOfPokemons_to_blankFragment"
+            app:destination="@id/blankFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsOfPokemon"
+        android:name="com.example.mvvmretofitdagger2demo.DetailsOfPokemon"
+        android:label="fragment_details_of_pokemon"
+        tools:layout="@layout/fragment_details_of_pokemon" >
+        <action
+            android:id="@+id/action_detailsOfPokemon_to_cardDetailsPokemon"
+            app:destination="@id/cardDetailsPokemon" />
+        <action
+            android:id="@+id/action_detailsOfPokemon_to_listOfPokemons"
+            app:destination="@id/listOfPokemons" />
+    </fragment>
+    <fragment
+        android:id="@+id/cardDetailsPokemon"
+        android:name="com.example.mvvmretofitdagger2demo.CardDetailsPokemon"
+        android:label="fragment_card_details_pokemon"
+        tools:layout="@layout/fragment_card_details_pokemon" >
+        <action
+            android:id="@+id/action_cardDetailsPokemon_to_detailsOfPokemon"
+            app:destination="@id/detailsOfPokemon" />
+    </fragment>
+</navigation>
