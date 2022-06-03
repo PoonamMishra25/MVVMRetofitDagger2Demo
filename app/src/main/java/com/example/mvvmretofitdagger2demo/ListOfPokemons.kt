@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Query
 import com.example.mvvmretofitdagger2demo.databinding.FragmentListOfPokemonsBinding
@@ -32,18 +34,19 @@ class ListOfPokemons : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-//    @Inject
-//    lateinit var mainViewModelFactory: MainViewModelFactory
+    @Inject
+    lateinit var mainViewModelFactory: MainViewModelFactory
 
     @Inject
     lateinit var repository: PokemonRepository
 
     @Inject
     lateinit var pokemonDatabase: PokemonDatabase
+    lateinit var mainViewModel: MainViewModel
     private var _binding: FragmentListOfPokemonsBinding? = null
     private val binding: FragmentListOfPokemonsBinding get() = _binding!!
-var type:String ="Normal"
-
+    var type: String = "Normal"
+    //var pokeId:Int=1
     lateinit var pokemonTypesAdapter: PokemonTypesAdapter
 
 //    private val viewModel: MainViewModel by lazy {
@@ -68,35 +71,57 @@ var type:String ="Normal"
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentListOfPokemonsBinding.inflate(layoutInflater)
-        type=arguments?.getString(ARG_PARAM1)!!
+        type = arguments?.getString(ARG_PARAM1)!!
 
         val application = requireActivity().application as PokemonApplication
         (application).applicationComponent.injectViewModel(this)
-        configureObserver()
+
+        mainViewModel = ViewModelProvider(this, mainViewModelFactory).get(MainViewModel::class.java)
+        binding.tv2.text=type+" Type Pokemon"
+        configureObserver1()
 
         return binding.root
     }
 
-    private fun configureObserver() {
+    private fun configureObserver1() {
         pokemonTypesAdapter = PokemonTypesAdapter(openDetails = ::openDetails)
 
 
         CoroutineScope(Dispatchers.Default).launch {
-           pokemonTypesAdapter.setPokeList( pokemonDatabase.pokemonDao().getSpecificPokemon(type))
+            pokemonTypesAdapter.setPokeList(pokemonDatabase.pokemonDao().getSpecificPokemon(type))
 
         }
 
         binding.apply {
-            rvPoke.layoutManager = LinearLayoutManager(requireContext())
+            //rvPoke.layoutManager = LinearLayoutManager(requireContext())
             rvPoke.adapter = pokemonTypesAdapter
         }
 
     }
 
+//    private fun configureObserver() {
+//        pokemonTypesAdapter = PokemonTypesAdapter(openDetails = ::openDetails)
+//
+//        CoroutineScope(Dispatchers.Main).launch {
+//            //pokemonTypesAdapter.setPokeList(pokemonDatabase.pokemonDao().getSpecificPokemon(type))
+//
+//            mainViewModel.pokemonSpecificLiveData.observe(viewLifecycleOwner, Observer {
+//                pokemonTypesAdapter.setPokeList(it)
+//            })
+//
+//        }
+//
+//        binding.apply {
+//            rvPoke.layoutManager = GridLayoutManager(requireContext(),2)
+//            rvPoke.adapter = pokemonTypesAdapter
+//        }
+//
+//    }
+
 
     private fun openDetails(pokemonDb: PokemonDb) {
         parentFragmentManager.beginTransaction()
-            .replace(R.id.containerView, DetailsOfPokemon())
+            .replace(R.id.containerView, DetailsOfPokemon.newInstance(pokemonDb.id))
             .addToBackStack(null)
             .commit()
     }

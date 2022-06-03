@@ -1,6 +1,7 @@
 package com.example.mvvmretofitdagger2demo.di
 
 import android.content.Context
+import com.example.mvvmretofitdagger2demo.DetailsOfPokemon
 import com.example.mvvmretofitdagger2demo.ListOfPokemons
 import com.example.mvvmretofitdagger2demo.MainActivity
 import com.example.mvvmretofitdagger2demo.databinding.FragmentListOfPokemonsBinding
@@ -16,6 +17,7 @@ interface ApplicationComponent {
 
    fun inject(mainActivity: MainActivity)
    fun injectViewModel(fragment: ListOfPokemons)
+   fun injectDetaileFragment(fragment:DetailsOfPokemon)
    @Component.Factory
    interface Factory{
       fun create(@BindsInstance context: Context):ApplicationComponent

@@ -22,6 +22,7 @@ class PokemonTypesAdapter(private val typeList: MutableList<PokemonDb> = mutable
         fun bind(pokemonDb: PokemonDb){
         Glide.with(binding.ivListimageView).load(pokemonDb.image).into(binding.ivListimageView)
         binding.tvPokeName.text=pokemonDb.name
+
             binding.root.setOnClickListener{
                 openDetails(pokemonDb)
             }

@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mvvmretofitdagger2demo.databinding.FragmentBlankBinding
 import com.example.mvvmretofitdagger2demo.db.PokemonDao
 import com.example.mvvmretofitdagger2demo.db.PokemonDatabase
+import com.example.mvvmretofitdagger2demo.model.LogoType
 import com.example.mvvmretofitdagger2demo.model.PokemonDb
 import com.example.mvvmretofitdagger2demo.viewmodel.MainViewModel
 import com.example.mvvmretofitdagger2demo.views.CustomAdapter
@@ -57,22 +59,22 @@ class BlankFragment : Fragment() {
         _binding = FragmentBlankBinding.inflate(layoutInflater)
         //  findNavController().navigate(R.id.action_blankFragment_to_listOfPokemons)
         //findNavController().navigate(ListOfPokemons).action
-        val list: ArrayList<String> = ArrayList()
+        val list: ArrayList<LogoType> = ArrayList()
 
         customAdapter = CustomAdapter(openDetails = :: openDetails )
         customAdapter.setList(populateList(list))
         binding.rvTypes
             .apply {
-                layoutManager = LinearLayoutManager(requireContext())
+                layoutManager = GridLayoutManager(requireContext(),2)
                 hasFixedSize()
                 this.adapter = customAdapter
 
             }
 
-//        binding.rvTypes.setOnClickListener {
-//            val action = BlankFragmentDirections.actionBlankFragmentToListOfPokemons()
-//            findNavController().navigate(action)
-//        }
+
+
+//        val application = requireActivity().application as PokemonApplication
+//        (application).applicationComponent.injectViewModel(this)
 
         return binding.root
     }
@@ -135,25 +137,22 @@ class BlankFragment : Fragment() {
             }
     }
 
-    fun populateList(list: ArrayList<String>): ArrayList<String> {
-        list.also {
-            it.add("Normal")
-            it.add("Grass")
-            it.add("Fire")
-            it.add("Flying")
-            it.add("Fighting")
-            it.add("Poison")
-            it.add("Electric")
-            it.add("Ground")
-            it.add("Rock")
-            it.add("Psychic")
-            it.add("Ice")
-            it.add("Ghost")
-            it.add("Steel")
-            it.add("Dragon")
-            it.add("Dark")
-            it.add("Fairy")
-        }
+    fun populateList(list: ArrayList<LogoType>): ArrayList<LogoType> {
+        list.add(LogoType("Normal",R.drawable.normal_icon))
+        list.add(LogoType("Grass",R.drawable.grass))
+        list.add(LogoType("Fire",R.drawable.fire))
+        list.add(LogoType("Flying",R.drawable.flying))
+        list.add(LogoType("Fighting",R.drawable.fighting))
+        list.add(LogoType("Poison",R.drawable.poison))
+        list.add(LogoType("Electric",R.drawable.electric))
+        list.add(LogoType("Ground",R.drawable.ground))
+        list.add(LogoType("Rock",R.drawable.rock))
+        list.add(LogoType("Psychic",R.drawable.psychic))
+        list.add(LogoType("Ice",R.drawable.ice))
+        list.add(LogoType("Ghost",R.drawable.ghost))
+        list.add(LogoType("Steel",R.drawable.steel))
+        list.add(LogoType("Dark",R.drawable.dark))
+        list.add(LogoType("Fairy",R.drawable.fairy))
         return list
 
     }

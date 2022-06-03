@@ -22,10 +22,29 @@ class PokemonRepository @Inject constructor(
     val pokemon: LiveData<PokemonDetailModelItem>
         //read only
         get() = _pokemon
+
+    private val _pokemonSer = MutableLiveData<PokemonDetailModelItem>()
+    val pokemonSer: LiveData<PokemonDetailModelItem>
+        //read only
+        get() = _pokemonSer
+
     private val _pokemonSpecificType = MutableLiveData<List<PokemonDb>>()
     val pokemonSpecificType: LiveData<List<PokemonDb>>
         get() = _pokemonSpecificType
 
+    suspend fun getPokemonService(numb:Int) {
+        coroutineScope {
+            launch {
+
+                val result = apiService.getPokemon(numb)
+                if (result.isSuccessful && result.body() != null) {
+                    _pokemonSer.postValue(result.body()!!.get(0))
+                }
+
+            }
+        }
+
+    }
     suspend fun getPokemon() {
         coroutineScope {
             launch {
@@ -46,19 +65,17 @@ class PokemonRepository @Inject constructor(
 //                               result.body()!![0].family.id
 //                           )
 //                       )
-
+                    _pokemon.postValue(result.body()!!.get(0))
                 }
-                _pokemon.postValue(result.body()!!.get(0))
+
             }
         }
-
-
 
     }
 
 
 
-    suspend fun getPokemonTypes(type:String){
+     fun getPokemonTypes(type:String){
        return _pokemonSpecificType.postValue( pokemonDatabase.pokemonDao().getSpecificPokemon(type))
 
     }
