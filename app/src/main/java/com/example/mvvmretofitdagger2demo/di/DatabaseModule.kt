@@ -19,6 +19,7 @@ class DatabaseModule {
     @Provides
     fun providePokemonDB(context:Context):PokemonDatabase{
         return Room.databaseBuilder(context,PokemonDatabase::class.java,
-            "pokemonDb1").build()
+            "pokemonDb1.db").createFromAsset("database/pokemonDb1.db")
+            .build()
     }
 }

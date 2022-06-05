@@ -1,23 +1,14 @@
 package com.example.mvvmretofitdagger2demo
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.mvvmretofitdagger2demo.databinding.FragmentBlankBinding
-import com.example.mvvmretofitdagger2demo.db.PokemonDao
-import com.example.mvvmretofitdagger2demo.db.PokemonDatabase
 import com.example.mvvmretofitdagger2demo.model.LogoType
-import com.example.mvvmretofitdagger2demo.model.PokemonDb
-import com.example.mvvmretofitdagger2demo.viewmodel.MainViewModel
 import com.example.mvvmretofitdagger2demo.views.CustomAdapter
-import com.example.mvvmretofitdagger2demo.views.DataAdapter
-import com.example.mvvmretofitdagger2demo.views.PokemonTypesAdapter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -37,10 +28,7 @@ class BlankFragment : Fragment() {
 
     //  private lateinit var viewModel: MainViewModel
 
-    //    private val dataAdapter: DataAdapter by lazy {
-//        DataAdapter()
-//    }
-    // TODO: Rename and change types of parameters
+
     private var param1: String? = null
     private var param2: String? = null
 
@@ -59,18 +47,17 @@ class BlankFragment : Fragment() {
         _binding = FragmentBlankBinding.inflate(layoutInflater)
         //  findNavController().navigate(R.id.action_blankFragment_to_listOfPokemons)
         //findNavController().navigate(ListOfPokemons).action
-        val list: ArrayList<LogoType> = ArrayList()
 
-        customAdapter = CustomAdapter(openDetails = :: openDetails )
+        val list: ArrayList<LogoType> = ArrayList()
+        customAdapter = CustomAdapter(openDetails = ::openDetails)
         customAdapter.setList(populateList(list))
         binding.rvTypes
             .apply {
-                layoutManager = GridLayoutManager(requireContext(),2)
+                layoutManager = GridLayoutManager(requireContext(), 2)
                 hasFixedSize()
                 this.adapter = customAdapter
 
             }
-
 
 
 //        val application = requireActivity().application as PokemonApplication
@@ -110,7 +97,7 @@ class BlankFragment : Fragment() {
 //}
 //}
 
-    private fun openDetails(str:String) {
+    private fun openDetails(str: String) {
         parentFragmentManager.beginTransaction()
             .replace(R.id.containerView, ListOfPokemons.newInstance(str))
             .addToBackStack(null)
@@ -118,6 +105,8 @@ class BlankFragment : Fragment() {
     }
 
     companion object {
+
+
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
@@ -138,24 +127,26 @@ class BlankFragment : Fragment() {
     }
 
     fun populateList(list: ArrayList<LogoType>): ArrayList<LogoType> {
-        list.add(LogoType("Normal",R.drawable.normal_icon))
-        list.add(LogoType("Grass",R.drawable.grass))
-        list.add(LogoType("Fire",R.drawable.fire))
-        list.add(LogoType("Flying",R.drawable.flying))
-        list.add(LogoType("Fighting",R.drawable.fighting))
-        list.add(LogoType("Poison",R.drawable.poison))
-        list.add(LogoType("Electric",R.drawable.electric))
-        list.add(LogoType("Ground",R.drawable.ground))
-        list.add(LogoType("Rock",R.drawable.rock))
-        list.add(LogoType("Psychic",R.drawable.psychic))
-        list.add(LogoType("Ice",R.drawable.ice))
-        list.add(LogoType("Ghost",R.drawable.ghost))
-        list.add(LogoType("Steel",R.drawable.steel))
-        list.add(LogoType("Dark",R.drawable.dark))
-        list.add(LogoType("Fairy",R.drawable.fairy))
+        list.add(LogoType("Water", R.drawable.water))
+        list.add(LogoType("Grass", R.drawable.grass))
+        list.add(LogoType("Fire", R.drawable.fire))
+        list.add(LogoType("Normal", R.drawable.normal_icon))
+        list.add(LogoType("Flying", R.drawable.flying))
+        list.add(LogoType("Fighting", R.drawable.fighting))
+        list.add(LogoType("Poison", R.drawable.poison))
+        list.add(LogoType("Electric", R.drawable.electric))
+        list.add(LogoType("Ground", R.drawable.ground))
+        list.add(LogoType("Rock", R.drawable.rock))
+        list.add(LogoType("Psychic", R.drawable.psychic))
+        list.add(LogoType("Ice", R.drawable.ice))
+        list.add(LogoType("Ghost", R.drawable.ghost))
+        list.add(LogoType("Steel", R.drawable.steel))
+        list.add(LogoType("Dark", R.drawable.dark))
+        list.add(LogoType("Fairy", R.drawable.fairy))
         return list
 
     }
+
 
     override fun onDestroy() {
         super.onDestroy()

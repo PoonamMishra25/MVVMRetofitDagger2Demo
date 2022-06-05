@@ -5,7 +5,7 @@ import android.app.Application
 import com.example.mvvmretofitdagger2demo.di.ApplicationComponent
 import com.example.mvvmretofitdagger2demo.di.DaggerApplicationComponent
 
-import com.example.mvvmretofitdagger2demo.repository.PokemonRepository
+
 
 
 

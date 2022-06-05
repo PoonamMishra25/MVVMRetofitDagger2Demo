@@ -21,13 +21,14 @@ class PokemonTypesAdapter(private val typeList: MutableList<PokemonDb> = mutable
     inner class PokemonTypeViewHolder(private val binding:PokemonListBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(pokemonDb: PokemonDb){
         Glide.with(binding.ivListimageView).load(pokemonDb.image).into(binding.ivListimageView)
-        binding.tvPokeName.text=pokemonDb.name
 
+        binding.tvPokeName.text= pokemonDb.name
             binding.root.setOnClickListener{
                 openDetails(pokemonDb)
             }
         }
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonTypeViewHolder =
   PokemonTypeViewHolder(PokemonListBinding.inflate(LayoutInflater.from(parent.context),parent,false))

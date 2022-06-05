@@ -30,8 +30,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/amaranth"
             android:text="Pokemon Name"
-
-            android:textSize="20sp"
+            android:layout_margin="2dp"
+            android:textSize="18sp"
             app:layout_constraintTop_toBottomOf="@id/iv_ListimageView"
             app:layout_constraintStart_toStartOf="@id/iv_ListimageView"
             app:layout_constraintEnd_toEndOf="@id/iv_ListimageView"

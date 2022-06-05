@@ -3,12 +3,13 @@ package com.example.mvvmretofitdagger2demo.repository
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.lifecycleScope
 import com.example.mvvmretofitdagger2demo.db.PokemonDatabase
+import com.example.mvvmretofitdagger2demo.model.DetailCardsModel
+import com.example.mvvmretofitdagger2demo.model.PokemonCardModel
 import com.example.mvvmretofitdagger2demo.model.PokemonDb
 import com.example.mvvmretofitdagger2demo.model.PokemonDetailModelItem
 import com.example.mvvmretofitdagger2demo.retrofit.ApiService
-import kotlinx.coroutines.CoroutineScope
+import com.example.mvvmretofitdagger2demo.utils.Constants
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -28,6 +29,10 @@ class PokemonRepository @Inject constructor(
         //read only
         get() = _pokemonSer
 
+    private val _cardPokemon = MutableLiveData<PokemonCardModel>()
+    val cardPokemon :LiveData<PokemonCardModel>
+    get() = _cardPokemon
+
     private val _pokemonSpecificType = MutableLiveData<List<PokemonDb>>()
     val pokemonSpecificType: LiveData<List<PokemonDb>>
         get() = _pokemonSpecificType
@@ -45,39 +50,56 @@ class PokemonRepository @Inject constructor(
         }
 
     }
-    suspend fun getPokemon() {
-        coroutineScope {
-            launch {
-//               for(i in 6..500){
-                val result = apiService.getPokemon(458)
+
+    suspend fun getPokemonCardService(pokemonName :String) {
+//        coroutineScope {
+//            launch {
+
+                val result = apiService.getCardDetials(Constants.BASE_URL2+pokemonName)
                 if (result.isSuccessful && result.body() != null) {
-
-                    val list: ArrayList<String> = ArrayList()
-                    list.addAll(result.body()!![0].types)
-
-                    val typesString = list.joinToString { "\'${it}\'" }
-
-//                       pokemonDatabase.pokemonDao().addPokemonDB(
-//                           PokemonDb(i,
-//                               result.body()!![0].name,
-//                               typesString,
-//                               result.body()!![0].sprite,
-//                               result.body()!![0].family.id
-//                           )
-//                       )
-                    _pokemon.postValue(result.body()!!.get(0))
+                    _cardPokemon.postValue(result.body()!!)
+                }else{
+                   Log.d("****","Error Occurred!")
                 }
 
-            }
-        }
+//            }
+//        }
 
     }
+//    suspend fun getPokemon() {
+//        coroutineScope {
+//            launch {
+//                //for (i in 659..840) {
+//                    val result = apiService.getPokemon(i)
+//                    if (result.isSuccessful && result.body() != null) {
+//
+//                        val list: ArrayList<String> = ArrayList()
+//                        list.addAll(result.body()!![0].types)
+//
+//                        val typesString = list.joinToString { "\'${it}\'" }
+//
+//                        pokemonDatabase.pokemonDao().addPokemonDB(
+//                            PokemonDb(
+//                                i,
+//                                result.body()!![0].name,
+//                                typesString,
+//                                result.body()!![0].sprite,
+//                                result.body()!![0].family.id
+//                            )
+//                        )
+//                        // _pokemon.postValue(result.body()!!.get(0))
+//                    }
+//
+//                }
+//            }
+//
+//        }
 
+  //  }
 
-
-     fun getPokemonTypes(type:String){
-       return _pokemonSpecificType.postValue( pokemonDatabase.pokemonDao().getSpecificPokemon(type))
-
-    }
+//     fun getPokemonTypes(type:String){
+//       return _pokemonSpecificType.postValue( pokemonDatabase.pokemonDao().getSpecificPokemon(type))
+//
+//    }
 
 }

@@ -95,6 +95,7 @@ class ListOfPokemons : Fragment() {
         binding.apply {
             //rvPoke.layoutManager = LinearLayoutManager(requireContext())
             rvPoke.adapter = pokemonTypesAdapter
+            progressBarListOfPokemon.visibility=View.GONE
         }
 
     }
@@ -121,7 +122,7 @@ class ListOfPokemons : Fragment() {
 
     private fun openDetails(pokemonDb: PokemonDb) {
         parentFragmentManager.beginTransaction()
-            .replace(R.id.containerView, DetailsOfPokemon.newInstance(pokemonDb.id))
+            .replace(R.id.containerView, DetailsOfPokemon.newInstance(pokemonDb.id,pokemonDb.name))
             .addToBackStack(null)
             .commit()
     }
