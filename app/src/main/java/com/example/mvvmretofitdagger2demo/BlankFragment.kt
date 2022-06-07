@@ -143,6 +143,8 @@ class BlankFragment : Fragment() {
         list.add(LogoType("Steel", R.drawable.steel))
         list.add(LogoType("Dark", R.drawable.dark))
         list.add(LogoType("Fairy", R.drawable.fairy))
+        list.add(LogoType("Bug",R.drawable.bug))
+        list.add(LogoType("Dragon",R.drawable.dragon))
         return list
 
     }

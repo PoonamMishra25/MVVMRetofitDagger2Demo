@@ -1,20 +1,13 @@
 package com.example.mvvmretofitdagger2demo.views
 
 import android.annotation.SuppressLint
-import android.content.Context
+import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.example.mvvmretofitdagger2demo.ListOfPokemons
-import com.example.mvvmretofitdagger2demo.R
 import com.example.mvvmretofitdagger2demo.databinding.ListItemBinding
 import com.example.mvvmretofitdagger2demo.model.LogoType
-import com.example.mvvmretofitdagger2demo.model.PokemonDb
-import java.time.format.DateTimeFormatter
+
 
 class CustomAdapter(
     private val mList: MutableList<LogoType> = mutableListOf(),
@@ -40,7 +33,13 @@ class CustomAdapter(
 
 
             binding.root.setOnClickListener {
+//                val colors = intArrayOf(-0xdaa887, -0x593f33)
+//                val gradientDrawable = GradientDrawable(
+//                    GradientDrawable.Orientation.TOP_BOTTOM, colors
+//                )
+//                l.setBackground(gradientDrawable)
                 openDetails(logoType.type)
+
 
             }
         }

@@ -1,5 +1,6 @@
 package com.example.mvvmretofitdagger2demo
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -49,15 +50,6 @@ class ListOfPokemons : Fragment() {
     //var pokeId:Int=1
     lateinit var pokemonTypesAdapter: PokemonTypesAdapter
 
-//    private val viewModel: MainViewModel by lazy {
-//        // repository=PokemonRepository()
-//        object : ViewModelProvider.Factory {
-//            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-//                return MainViewModel(repository) as T
-//            }
-//        }.create(MainViewModel::class.java)
-//    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -78,6 +70,7 @@ class ListOfPokemons : Fragment() {
 
         mainViewModel = ViewModelProvider(this, mainViewModelFactory).get(MainViewModel::class.java)
         binding.tv2.text=type+" Type Pokemon"
+        setBackColor(type)
         configureObserver1()
 
         return binding.root
@@ -99,25 +92,6 @@ class ListOfPokemons : Fragment() {
         }
 
     }
-
-//    private fun configureObserver() {
-//        pokemonTypesAdapter = PokemonTypesAdapter(openDetails = ::openDetails)
-//
-//        CoroutineScope(Dispatchers.Main).launch {
-//            //pokemonTypesAdapter.setPokeList(pokemonDatabase.pokemonDao().getSpecificPokemon(type))
-//
-//            mainViewModel.pokemonSpecificLiveData.observe(viewLifecycleOwner, Observer {
-//                pokemonTypesAdapter.setPokeList(it)
-//            })
-//
-//        }
-//
-//        binding.apply {
-//            rvPoke.layoutManager = GridLayoutManager(requireContext(),2)
-//            rvPoke.adapter = pokemonTypesAdapter
-//        }
-//
-//    }
 
 
     private fun openDetails(pokemonDb: PokemonDb) {
@@ -145,5 +119,28 @@ class ListOfPokemons : Fragment() {
                     // putString(ARG_PARAM2, param2)
                 }
             }
+
+    }
+      private fun setBackColor(str:String){
+        when(str){
+            "Grass" -> binding.frameListTypePokemon.setBackgroundResource(R.drawable.backround)
+            "Water" -> binding.frameListTypePokemon.setBackgroundResource(R.drawable.backround_water)
+            "Fairy" -> binding.frameListTypePokemon.setBackgroundResource(R.drawable.backround_fairy)
+            "Dark" -> binding.frameListTypePokemon.setBackgroundResource(R.drawable.backround_dark)
+            "Flying" -> binding.frameListTypePokemon.setBackgroundResource(R.drawable.backround_flying)
+            "Poison" -> binding.frameListTypePokemon.setBackgroundResource(R.drawable.backround_poison)
+            "Ice" -> binding.frameListTypePokemon.setBackgroundResource(R.drawable.backround_ice)
+            "Fighting" -> binding.frameListTypePokemon.setBackgroundResource(R.drawable.backround_fighting)
+            "Fire" -> binding.frameListTypePokemon.setBackgroundResource(R.drawable.backround_fire)
+            "Normal" -> binding.frameListTypePokemon.setBackgroundResource(R.drawable.backround_normal)
+            "Electric" -> binding.frameListTypePokemon.setBackgroundResource(R.drawable.backround_electric)
+            "Ground" -> binding.frameListTypePokemon.setBackgroundResource(R.drawable.backround_ground)
+            "Psychic" -> binding.frameListTypePokemon.setBackgroundResource(R.drawable.backround_psychic)
+            "Ghost" -> binding.frameListTypePokemon.setBackgroundResource(R.drawable.backround_ghost)
+            "Rock" -> binding.frameListTypePokemon.setBackgroundResource(R.drawable.backround_rock)
+            "Steel" -> binding.frameListTypePokemon.setBackgroundResource(R.drawable.backround_steel)
+            "Bug" -> binding.frameListTypePokemon.setBackgroundResource(R.drawable.backround_bug)
+            "Dragon" -> binding.frameListTypePokemon.setBackgroundResource(R.drawable.backround_dragon)
+        }
     }
 }

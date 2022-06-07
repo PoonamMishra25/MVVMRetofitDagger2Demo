@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/frameListTypePokemon"
     android:layout_height="match_parent"
-    android:background="#DFD8D8"
+
     tools:context=".ListOfPokemons">
 
     <androidx.constraintlayout.widget.ConstraintLayout

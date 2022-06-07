@@ -30,7 +30,7 @@
         android:id="@+id/detailsOfPokemon"
         android:name="com.example.mvvmretofitdagger2demo.DetailsOfPokemon"
         android:label="fragment_details_of_pokemon"
-        tools:layout="@layout/fragment_details_of_pokemon" >
+        tools:layout="@layout/fragment_details_of_pokemon2" >
         <action
             android:id="@+id/action_detailsOfPokemon_to_cardDetailsPokemon"
             app:destination="@id/cardDetailsPokemon" />

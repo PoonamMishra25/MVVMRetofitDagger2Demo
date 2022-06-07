@@ -3,12 +3,32 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-v24/backround_bug.xml" value="0.222" />
+        <entry key="app/src/main/res/drawable-v24/backround_dark.xml" value="0.1375" />
+        <entry key="app/src/main/res/drawable-v24/backround_dragon.xml" value="0.222" />
+        <entry key="app/src/main/res/drawable-v24/backround_electric.xml" value="0.1375" />
+        <entry key="app/src/main/res/drawable-v24/backround_fighting.xml" value="0.1375" />
+        <entry key="app/src/main/res/drawable-v24/backround_fire.xml" value="0.1375" />
+        <entry key="app/src/main/res/drawable-v24/backround_flying.xml" value="0.1375" />
+        <entry key="app/src/main/res/drawable-v24/backround_ghost.xml" value="0.1375" />
+        <entry key="app/src/main/res/drawable-v24/backround_ground.xml" value="0.1375" />
+        <entry key="app/src/main/res/drawable-v24/backround_ice.xml" value="0.1375" />
+        <entry key="app/src/main/res/drawable-v24/backround_normal.xml" value="0.1375" />
+        <entry key="app/src/main/res/drawable-v24/backround_poison.xml" value="0.1375" />
+        <entry key="app/src/main/res/drawable-v24/backround_psychic.xml" value="0.1375" />
+        <entry key="app/src/main/res/drawable-v24/backround_rock.xml" value="0.1375" />
+        <entry key="app/src/main/res/drawable-v24/backround_steel.xml" value="0.1375" />
+        <entry key="app/src/main/res/drawable/backround.xml" value="0.1375" />
+        <entry key="app/src/main/res/drawable/backround_fairy.xml" value="0.1375" />
+        <entry key="app/src/main/res/drawable/backround_water.xml" value="0.1375" />
         <entry key="app/src/main/res/drawable/bg_card.xml" value="0.213" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/card_list.xml" value="0.39947916666666666" />
         <entry key="app/src/main/res/layout/detailed_pokemon_list.xml" value="0.2537037037037037" />
         <entry key="app/src/main/res/layout/fragment_blank.xml" value="0.25416666666666665" />
         <entry key="app/src/main/res/layout/fragment_card_details_pokemon.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/fragment_details_of_pokemon.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_details_of_pokemon2.xml" value="0.4005208333333333" />
         <entry key="app/src/main/res/layout/fragment_list_of_pokemons.xml" value="0.20833333333333334" />
         <entry key="app/src/main/res/layout/list_item.xml" value="0.25364583333333335" />
         <entry key="app/src/main/res/layout/pokemon_list.xml" value="0.2878787878787879" />
