@@ -12,15 +12,20 @@ import com.example.mvvmretofitdagger2demo.R
 import com.example.mvvmretofitdagger2demo.databinding.CardListBinding
 import com.example.mvvmretofitdagger2demo.model.DetailCardsModel
 import com.example.mvvmretofitdagger2demo.model.PokemonCardModel
+import com.example.mvvmretofitdagger2demo.model.PokemonDb
 
 
-class PokemonCardAdapter(private val urlList:ArrayList<DetailCardsModel>, val context: Context):
+class PokemonCardAdapter(private val urlList:ArrayList<DetailCardsModel>,private val openDetails: (DetailCardsModel) -> Unit):
     RecyclerView.Adapter<PokemonCardAdapter.PokemonViewHolder>() {
 
     inner class PokemonViewHolder(private val binding: CardListBinding):RecyclerView.ViewHolder(binding.root) {
         fun bind(pokemonCardModel:DetailCardsModel) {
 
 Glide.with(binding.ivCardImage).load(pokemonCardModel.images.small).into(binding.ivCardImage)
+
+            binding.root.setOnClickListener{
+                openDetails(pokemonCardModel)
+            }
     }
     }
 

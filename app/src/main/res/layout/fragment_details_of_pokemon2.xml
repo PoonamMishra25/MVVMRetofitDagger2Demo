@@ -181,6 +181,7 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/labelMega"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Mega"
@@ -273,6 +274,7 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/lable_ultrablast"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Ultrablast"
@@ -345,6 +347,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/label_starter"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Starter"
@@ -364,6 +367,7 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/label_legendary"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Legendary"

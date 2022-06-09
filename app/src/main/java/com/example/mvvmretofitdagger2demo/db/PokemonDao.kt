@@ -17,11 +17,14 @@ interface PokemonDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addPokemonDB(pokemon:PokemonDb)
 
-    @Query("Select type1 from pokemon_details order by id Asc")
-    suspend fun getPokemonType():List<String>
+    @Query("Select name from pokemon_details ")
+    suspend fun getAllPokemon():List<String>
 
-    @Query("select * from pokemon_details where type1 like '%' || :type || '%'")
-     fun getSpecificPokemon1(type:String): Flow<List<PokemonDb>>
+    @Query("Select id from pokemon_details where name like '%' || :name || '%'")
+    suspend fun getAllPokemonID(name:String):Int
+
+//    @Query("select * from pokemon_details where type1 like '%' || :type || '%'")
+//     fun getSpecificPokemon1(type:String): Flow<List<PokemonDb>>
 
     @Query("select * from pokemon_details where type1 like '%' || :type || '%'")
     fun getSpecificPokemon(type:String): List<PokemonDb>

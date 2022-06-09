@@ -33,6 +33,10 @@ class PokemonRepository @Inject constructor(
     val cardPokemon :LiveData<PokemonCardModel>
     get() = _cardPokemon
 
+//    private val _allPokemon = MutableLiveData<List<String>>()
+//    val allPokemon :LiveData<List<String>>
+//        get() = _allPokemon
+
     private val _pokemonSpecificType = MutableLiveData<List<PokemonDb>>()
     val pokemonSpecificType: LiveData<List<PokemonDb>>
         get() = _pokemonSpecificType
@@ -44,6 +48,7 @@ class PokemonRepository @Inject constructor(
                 val result = apiService.getPokemon(numb)
                 if (result.isSuccessful && result.body() != null) {
                     _pokemonSer.postValue(result.body()!!.get(0))
+                   // _allPokemon.postValue(result.body()[0].name)
                 }
 
             }

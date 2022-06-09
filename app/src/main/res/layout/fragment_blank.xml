@@ -6,19 +6,32 @@
     android:background="#DFD8D8"
     tools:context=".BlankFragment">
 
-
-    <TextView
-        android:id="@+id/tv1"
+    <AutoCompleteTextView
+        android:id="@+id/autoComplete"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"
+        android:layout_height="wrap_content"
+
         android:textAlignment="center"
+        android:hint="Search Pokemon"
+        android:drawableEnd="@drawable/ic_baseline_search_24"
         android:layout_marginTop="5dp"
         android:textColor="@color/black"
         android:textStyle="bold"
         android:textSize="25sp"
 
         />
+<!--    <TextView-->
+<!--        android:id="@+id/tv1"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:text="@string/hello_blank_fragment"-->
+<!--        android:textAlignment="center"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textSize="25sp"-->
+
+<!--        />-->
 
     <androidx.recyclerview.widget.RecyclerView
       android:layout_gravity="center_horizontal"

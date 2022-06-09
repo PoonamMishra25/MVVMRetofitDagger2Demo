@@ -2,29 +2,21 @@ package com.example.mvvmretofitdagger2demo
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.text.BoringLayout.make
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.GridLayout
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mvvmretofitdagger2demo.databinding.FragmentDetailsOfPokemon2Binding
-
 import com.example.mvvmretofitdagger2demo.model.DetailCardsModel
-import com.example.mvvmretofitdagger2demo.model.PokemonCardModel
 import com.example.mvvmretofitdagger2demo.model.PokemonDetailModelItem
 import com.example.mvvmretofitdagger2demo.viewmodel.MainViewModel
 import com.example.mvvmretofitdagger2demo.viewmodel.MainViewModelFactory
 import com.example.mvvmretofitdagger2demo.views.PokemonCardAdapter
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -44,9 +36,9 @@ class DetailsOfPokemon : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    var totalListSize:Int=0
-    var pokeType:String=""
-    val imageUrlList:ArrayList<DetailCardsModel> = ArrayList()
+    var totalListSize: Int = 0
+    var pokeType: String = ""
+    val imageUrlList: ArrayList<DetailCardsModel> = ArrayList()
 
     private var _binding: FragmentDetailsOfPokemon2Binding? = null
     private val binding: FragmentDetailsOfPokemon2Binding get() = _binding!!
@@ -84,25 +76,33 @@ class DetailsOfPokemon : Fragment() {
         addCustomView()
 
 
-            return binding.root
+        return binding.root
 
     }
 
     private fun getObservers() {
         lifecycleScope.launch {
             mainViewModel.pokemonLiveData.observe(viewLifecycleOwner, Observer {
-                if (it != null) {
-                    feedingViews(it)
+                if (it == null) {
 
+                    Toast.makeText(requireContext(), "Error occured", Toast.LENGTH_SHORT).show()
 
                 } else {
-                    Toast.makeText(requireContext(), "Error occured", Toast.LENGTH_SHORT).show()
+                    feedingViews(it)
                 }
             })
         }
     }
 
-
+    private fun openDetails(detailCardsModel: DetailCardsModel) {
+        parentFragmentManager.beginTransaction()
+            .replace(
+                R.id.containerView,
+                CardDetailsPokemon.newInstance(detailCardsModel.images.large)
+            )
+            .addToBackStack(null)
+            .commit()
+    }
 
 
     @SuppressLint("SetTextI18n")
@@ -113,27 +113,53 @@ class DetailsOfPokemon : Fragment() {
             pokeName = item.name
             tvDetailedName.text = pokeName
             tvSpecies.text = "  " + item.species
-            pokeType=item.types.toString()
-            tvType.text = "  " + pokeType
+
+            pokeType = item.types.toString()
+
+            tvType.text = "  " + pokeType.substring(1, pokeType.length - 1)
             makeToast(pokeType)
-            if(pokeType.contains(",")){
+            if (pokeType.contains(",")) {
                 setBackColor(pokeType.substring(1, pokeType.indexOf(",")))
-            }else{
-                setBackColor(pokeType.substring(1,pokeType.length-1))
+            } else {
+                setBackColor(pokeType.substring(1, pokeType.length - 1))
             }
+            val ability = item.abilities.normal.toString()
+            tvAbility.text = "  " + ability.substring(1, ability.length - 1)
 
-            tvAbility.text = "  " +
-                    item.abilities.normal.toString()
+            val gender = item.gender.toString()
+            tvGender.text = "  " + gender.substring(1, gender.length - 1)
 
-            tvGender.text = "  " + item.gender.toString()
             tvHeight.text = "  " + item.height.toString()
             tvWeight.text = "  " + item.weight.toString()
             tvEvolutionStage.text = "  " + item.family.evolutionStage.toString()
-            tvEvolutionLine.text = "  " + item.family.evolutionLine.toString()
-            tvStarter.text = "  " + item.starter.toString()
-            tvLegendary.text = "  " + item.legendary.toString()
-            tvUltrablast.text = "  " + item.ultraBeast.toString()
-            tvMega.text = "  " + item.mega.toString()
+            var evolutionLine = item.family.evolutionLine.toString()
+            tvEvolutionLine.text = "  " + evolutionLine.substring(1, evolutionLine.length - 1)
+
+            if (item.starter) {
+                tvStarter.text = "  " + item.starter.toString()
+            } else {
+                tvStarter.visibility = View.GONE
+                labelStarter.visibility = View.GONE
+            }
+            if (item.legendary) {
+                tvLegendary.text = "  " + item.legendary.toString()
+            } else {
+                tvLegendary.visibility = View.GONE
+                labelLegendary.visibility = View.GONE
+            }
+            if (item.ultraBeast) {
+                tvUltrablast.text = "  " + item.ultraBeast.toString()
+            } else {
+                tvUltrablast.visibility = View.GONE
+                lableUltrablast.visibility = View.GONE
+            }
+            if (item.mega) {
+                tvMega.text = "  " + item.mega.toString()
+            } else {
+                tvMega.visibility = View.GONE
+                labelMega.visibility = View.GONE
+            }
+
 
             tvDesc.text = "  " + item.description.toString()
         }
@@ -166,22 +192,23 @@ class DetailsOfPokemon : Fragment() {
 
     private fun addCustomView() {
         mainViewModel.pokemonCardLiveData.observe(viewLifecycleOwner, Observer {
-            imageUrlList.addAll(it.data)
+            if (it == null) {
+                makeToast("Network Failed!")
+            } else {
+                imageUrlList.addAll(it.data)
 
-            pokemonCardAdapter = PokemonCardAdapter(imageUrlList, requireContext())
-            binding.rvCards.apply {
+                pokemonCardAdapter = PokemonCardAdapter(imageUrlList, openDetails = ::openDetails)
+                binding.rvCards.apply {
 
-                adapter = pokemonCardAdapter
+                    adapter = pokemonCardAdapter
+                }
             }
-
-
-
         })
 
     }
 
-    private fun setBackColor(str:String){
-        when(str){
+    private fun setBackColor(str: String) {
+        when (str) {
             "Grass" -> binding.scrollLayout.setBackgroundResource(R.drawable.backround)
             "Water" -> binding.scrollLayout.setBackgroundResource(R.drawable.backround_water)
             "Fairy" -> binding.scrollLayout.setBackgroundResource(R.drawable.backround_fairy)
@@ -202,9 +229,11 @@ class DetailsOfPokemon : Fragment() {
             "Dragon" -> binding.scrollLayout.setBackgroundResource(R.drawable.backround_dragon)
         }
     }
-   private fun makeToast(str:String){
-        Toast.makeText(requireContext(),str,Toast.LENGTH_SHORT).show()
+
+    private fun makeToast(str: String) {
+        Toast.makeText(requireContext(), str, Toast.LENGTH_SHORT).show()
     }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null

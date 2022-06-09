@@ -82,7 +82,7 @@ class ListOfPokemons : Fragment() {
 
         CoroutineScope(Dispatchers.Default).launch {
             pokemonTypesAdapter.setPokeList(pokemonDatabase.pokemonDao().getSpecificPokemon(type))
-
+arrayList.addAll(pokemonDatabase.pokemonDao().getAllPokemon())
         }
 
         binding.apply {
@@ -102,6 +102,7 @@ class ListOfPokemons : Fragment() {
     }
 
     companion object {
+        val arrayList:ArrayList<String> = ArrayList()
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.

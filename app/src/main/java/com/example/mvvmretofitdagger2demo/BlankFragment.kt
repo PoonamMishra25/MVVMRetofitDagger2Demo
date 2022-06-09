@@ -4,11 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.mvvmretofitdagger2demo.databinding.FragmentBlankBinding
+import com.example.mvvmretofitdagger2demo.db.PokemonDatabase
 import com.example.mvvmretofitdagger2demo.model.LogoType
+import com.example.mvvmretofitdagger2demo.repository.PokemonRepository
+import com.example.mvvmretofitdagger2demo.viewmodel.MainViewModel
+import com.example.mvvmretofitdagger2demo.viewmodel.MainViewModelFactory
 import com.example.mvvmretofitdagger2demo.views.CustomAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,12 +37,18 @@ class BlankFragment : Fragment() {
     private val binding: FragmentBlankBinding get() = _binding!!
     private lateinit var customAdapter: CustomAdapter
 
-    //  private lateinit var viewModel: MainViewModel
 
+    @Inject
+    lateinit var mainViewModelFactory: MainViewModelFactory
 
+    @Inject
+    lateinit var repository: PokemonRepository
+
+    @Inject
+    lateinit var pokemonDatabase: PokemonDatabase
     private var param1: String? = null
     private var param2: String? = null
-
+    lateinit var mainViewModel: MainViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -45,9 +62,10 @@ class BlankFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentBlankBinding.inflate(layoutInflater)
-        //  findNavController().navigate(R.id.action_blankFragment_to_listOfPokemons)
-        //findNavController().navigate(ListOfPokemons).action
+        val application = requireActivity().application as PokemonApplication
+        (application).applicationComponent.injectViewModel2(this)
 
+        mainViewModel = ViewModelProvider(this, mainViewModelFactory).get(MainViewModel::class.java)
         val list: ArrayList<LogoType> = ArrayList()
         customAdapter = CustomAdapter(openDetails = ::openDetails)
         customAdapter.setList(populateList(list))
@@ -59,43 +77,43 @@ class BlankFragment : Fragment() {
 
             }
 
-
-//        val application = requireActivity().application as PokemonApplication
-//        (application).applicationComponent.injectViewModel(this)
+        listOfPoke()
 
         return binding.root
     }
-//
-//    private fun configureObserver() {
-//        pokemonTypesAdapter = PokemonTypesAdapter(openDetails = ::openDetails)
-//        val list: ArrayList<PokemonDb> = ArrayList()
-//
-//        //pokemonTypesAdapter.setUserList(list)
-//        // viewLifecycleOwner -> points to the owner of the ViewModel
-//        viewModel.pokemonTypeLiveData.observe(viewLifecycleOwner) {
-//            pokemonTypesAdapter.setUserList(list)
-//            binding.apply {
-//                rvTypes.layoutManager = LinearLayoutManager(requireContext())
-//                rvTypes.adapter = pokemonTypesAdapter
-//            }
 
-//            if (it.isEmpty()) {
-////                binding.tvErrorTextView.visibility=View.VISIBLE
-////                binding.tvErrorTextView.text = "Network call failed"
-////                binding.pbLoading.visibility = View.GONE
-//            } else {
-//                pokemonTypesAdapter.setUserList(response)
-//
-//                binding.apply {
-//                    rvTypes.layoutManager= LinearLayoutManager(requireContext())
-//                    rvTypes.adapter = pokemonTypesAdapter
-////                    pbLoading.visibility = View.GONE
-////                    tvErrorTextView.visibility = View.GONE
-//                }
-//            }
-//        }
-//}
-//}
+    private fun listOfPoke() {
+        val list1: ArrayList<String> = ArrayList()
+        CoroutineScope(Dispatchers.Main).launch {
+            list1.addAll(pokemonDatabase.pokemonDao().getAllPokemon())
+            var arrayAdapter = ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_spinner_dropdown_item,
+                list1
+            )
+            val autoComplete = binding.autoComplete
+            autoComplete.setAdapter(arrayAdapter)
+
+            autoComplete.setOnItemClickListener { adapterView, view, i, l ->
+
+                Toast.makeText(requireContext(), "Nmae-: " + list1[i], Toast.LENGTH_SHORT).show()
+                CoroutineScope(Dispatchers.IO).launch {
+                    parentFragmentManager.beginTransaction()
+                        .replace(
+                            R.id.containerView, DetailsOfPokemon.newInstance(
+                                pokemonDatabase.pokemonDao()
+                                    .getAllPokemonID(autoComplete.text.toString()),
+                                autoComplete.text.toString()
+                            )
+                        )
+                        .addToBackStack(null)
+                        .commit()
+                }
+
+            }
+        }
+    }
+
 
     private fun openDetails(str: String) {
         parentFragmentManager.beginTransaction()
@@ -143,8 +161,8 @@ class BlankFragment : Fragment() {
         list.add(LogoType("Steel", R.drawable.steel))
         list.add(LogoType("Dark", R.drawable.dark))
         list.add(LogoType("Fairy", R.drawable.fairy))
-        list.add(LogoType("Bug",R.drawable.bug))
-        list.add(LogoType("Dragon",R.drawable.dragon))
+        list.add(LogoType("Bug", R.drawable.bug))
+        list.add(LogoType("Dragon", R.drawable.dragon))
         return list
 
     }
