@@ -129,7 +129,8 @@
                             android:id="@+id/tvType"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="  Type"
+                            android:text="Type"
+                            android:layout_marginStart="5dp"
                             android:textSize="16sp" />
                     </LinearLayout>
 
@@ -143,6 +144,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Species"
+
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -150,7 +152,8 @@
                             android:id="@+id/tvSpecies"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="  Species"
+                            android:layout_marginStart="5dp"
+                            android:text="Species"
                             android:textSize="16sp" />
                     </LinearLayout>
 
@@ -169,9 +172,10 @@
 
                         <TextView
                             android:id="@+id/tvAbility"
+                            android:layout_marginStart="5dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="  Ability"
+                            android:text="Ability"
                             android:textSize="16sp" />
 
                         <LinearLayout
@@ -192,7 +196,8 @@
                                 android:id="@+id/tvMega"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="  Mega"
+                                android:text="Mega"
+                                android:layout_marginStart="5dp"
                                 android:textSize="16sp" />
                         </LinearLayout>
                     </LinearLayout>
@@ -243,7 +248,8 @@
                             android:id="@+id/tvHeight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="  Height"
+                            android:text="Height"
+                            android:layout_marginStart="5dp"
                             android:textSize="16sp" />
                     </LinearLayout>
 
@@ -264,7 +270,8 @@
                             android:id="@+id/tvWeight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="  Weight"
+                            android:text="Weight"
+                            android:layout_marginStart="5dp"
                             android:textSize="16sp" />
 
                         <LinearLayout
@@ -285,7 +292,8 @@
                                 android:id="@+id/tvUltrablast"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="  Ultrablast"
+                                android:text="Ultrablast"
+                                android:layout_marginStart="5dp"
                                 android:textSize="16sp" />
                         </LinearLayout>
                     </LinearLayout>
@@ -315,7 +323,8 @@
                             android:id="@+id/tvEvolutionStage"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="  EvolutionStage"
+                            android:layout_marginStart="5dp"
+                            android:text="EvolutionStage"
                             android:textSize="16sp" />
                     </LinearLayout>
 
@@ -336,7 +345,8 @@
                             android:id="@+id/tvEvolutionLine"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="  EvolutionLine"
+                            android:text="EvolutionLine"
+                            android:layout_marginStart="5dp"
                             android:textSize="16sp" />
                     </LinearLayout>
 
@@ -358,7 +368,8 @@
                             android:id="@+id/tvStarter"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="  Starter"
+                            android:text="Starter"
+                            android:layout_marginStart="5dp"
                             android:textSize="16sp" />
 
                         <LinearLayout
@@ -378,7 +389,8 @@
                                 android:id="@+id/tvLegendary"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="  Lagendary"
+                                android:text="Lagendary"
+                                android:layout_marginStart="5dp"
                                 android:textSize="16sp" />
                         </LinearLayout>
                     </LinearLayout>

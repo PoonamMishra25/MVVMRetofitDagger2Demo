@@ -1,28 +1,23 @@
 package com.example.mvvmretofitdagger2demo
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.room.Query
+import com.example.mvvmretofitdagger2demo.PokemonApplication
+import com.example.mvvmretofitdagger2demo.R
 import com.example.mvvmretofitdagger2demo.databinding.FragmentListOfPokemonsBinding
 import com.example.mvvmretofitdagger2demo.db.PokemonDatabase
 import com.example.mvvmretofitdagger2demo.model.PokemonDb
 import com.example.mvvmretofitdagger2demo.repository.PokemonRepository
 import com.example.mvvmretofitdagger2demo.viewmodel.MainViewModel
 import com.example.mvvmretofitdagger2demo.viewmodel.MainViewModelFactory
-import com.example.mvvmretofitdagger2demo.views.PokemonTypesAdapter
+import com.example.mvvmretofitdagger2demo.adapters.PokemonTypesAdapter
+
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

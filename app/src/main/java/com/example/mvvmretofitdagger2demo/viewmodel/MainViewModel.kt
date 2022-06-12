@@ -4,15 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mvvmretofitdagger2demo.DetailsOfPokemon
-import com.example.mvvmretofitdagger2demo.model.DetailCardsModel
+import com.example.mvvmretofitdagger2demo.model.DeckListModel
 import com.example.mvvmretofitdagger2demo.model.PokemonCardModel
 import com.example.mvvmretofitdagger2demo.model.PokemonDb
 import com.example.mvvmretofitdagger2demo.model.PokemonDetailModelItem
 import com.example.mvvmretofitdagger2demo.repository.PokemonRepository
-import com.example.mvvmretofitdagger2demo.views.PokemonTypesAdapter
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class MainViewModel(private val repository: PokemonRepository):ViewModel() {
 
@@ -22,11 +19,15 @@ class MainViewModel(private val repository: PokemonRepository):ViewModel() {
     val pokemonSpecificLiveData: LiveData<List<PokemonDb>>
         get() = repository.pokemonSpecificType
 
+    val deckListLiveData: LiveData<List<DeckListModel>>
+        get() = repository.deckLists
+
     val pokemonCardLiveData: LiveData<PokemonCardModel>
         get() = repository.cardPokemon
     init {
         viewModelScope.launch {
-           // repository.getPokemon()
+            //repository.getPokemon()
+            repository.getDeckLists()
             repository.getPokemonService(DetailsOfPokemon.pokeId)
             repository.pokemonSer
             repository.getPokemonCardService(DetailsOfPokemon.pokeName)

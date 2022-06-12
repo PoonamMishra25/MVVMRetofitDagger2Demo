@@ -1,6 +1,6 @@
 package com.example.mvvmretofitdagger2demo
 
-import android.annotation.SuppressLint
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,27 +16,22 @@ import com.example.mvvmretofitdagger2demo.model.DetailCardsModel
 import com.example.mvvmretofitdagger2demo.model.PokemonDetailModelItem
 import com.example.mvvmretofitdagger2demo.viewmodel.MainViewModel
 import com.example.mvvmretofitdagger2demo.viewmodel.MainViewModelFactory
-import com.example.mvvmretofitdagger2demo.views.PokemonCardAdapter
+import com.example.mvvmretofitdagger2demo.adapters.PokemonCardAdapter
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 
-/**
- * A simple [Fragment] subclass.
- * Use the [DetailsOfPokemon.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class DetailsOfPokemon : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    var totalListSize: Int = 0
+
     var pokeType: String = ""
     val imageUrlList: ArrayList<DetailCardsModel> = ArrayList()
 
@@ -105,18 +100,17 @@ class DetailsOfPokemon : Fragment() {
     }
 
 
-    @SuppressLint("SetTextI18n")
     private fun feedingViews(item: PokemonDetailModelItem) {
 
         Glide.with(binding.ivDetailImage).load(item.sprite).into(binding.ivDetailImage)
         binding.apply {
             pokeName = item.name
             tvDetailedName.text = pokeName
-            tvSpecies.text = "  " + item.species
+            tvSpecies.text =  item.species
 
             pokeType = item.types.toString()
 
-            tvType.text = "  " + pokeType.substring(1, pokeType.length - 1)
+            tvType.text =  pokeType.substring(1, pokeType.length - 1)
             makeToast(pokeType)
             if (pokeType.contains(",")) {
                 setBackColor(pokeType.substring(1, pokeType.indexOf(",")))
@@ -124,44 +118,44 @@ class DetailsOfPokemon : Fragment() {
                 setBackColor(pokeType.substring(1, pokeType.length - 1))
             }
             val ability = item.abilities.normal.toString()
-            tvAbility.text = "  " + ability.substring(1, ability.length - 1)
+            tvAbility.text =  ability.substring(1, ability.length - 1)
 
             val gender = item.gender.toString()
-            tvGender.text = "  " + gender.substring(1, gender.length - 1)
+            tvGender.text =  gender.substring(1, gender.length - 1)
 
-            tvHeight.text = "  " + item.height.toString()
-            tvWeight.text = "  " + item.weight.toString()
-            tvEvolutionStage.text = "  " + item.family.evolutionStage.toString()
-            var evolutionLine = item.family.evolutionLine.toString()
-            tvEvolutionLine.text = "  " + evolutionLine.substring(1, evolutionLine.length - 1)
+            tvHeight.text =  item.height
+            tvWeight.text = item.weight
+            tvEvolutionStage.text =  item.family.evolutionStage.toString()
+            val evolutionLine = item.family.evolutionLine.toString()
+            tvEvolutionLine.text =  evolutionLine.substring(1, evolutionLine.length - 1)
 
             if (item.starter) {
-                tvStarter.text = "  " + item.starter.toString()
+                tvStarter.text =  item.starter.toString()
             } else {
                 tvStarter.visibility = View.GONE
                 labelStarter.visibility = View.GONE
             }
             if (item.legendary) {
-                tvLegendary.text = "  " + item.legendary.toString()
+                tvLegendary.text = item.legendary.toString()
             } else {
                 tvLegendary.visibility = View.GONE
                 labelLegendary.visibility = View.GONE
             }
             if (item.ultraBeast) {
-                tvUltrablast.text = "  " + item.ultraBeast.toString()
+                tvUltrablast.text = item.ultraBeast.toString()
             } else {
                 tvUltrablast.visibility = View.GONE
                 lableUltrablast.visibility = View.GONE
             }
             if (item.mega) {
-                tvMega.text = "  " + item.mega.toString()
+                tvMega.text =  item.mega.toString()
             } else {
                 tvMega.visibility = View.GONE
                 labelMega.visibility = View.GONE
             }
 
 
-            tvDesc.text = "  " + item.description.toString()
+            tvDesc.text = item.description
         }
 
     }
@@ -170,15 +164,8 @@ class DetailsOfPokemon : Fragment() {
         var pokeId: Int = 1
         var pokeName: String = "Pidgeot"
 
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DetailsOfPokemon.
-         */
-        // TODO: Rename and change types and number of parameters
+
+
         @JvmStatic
         fun newInstance(param1: Int, pokeName: String) =
             DetailsOfPokemon().apply {
@@ -193,7 +180,7 @@ class DetailsOfPokemon : Fragment() {
     private fun addCustomView() {
         mainViewModel.pokemonCardLiveData.observe(viewLifecycleOwner, Observer {
             if (it == null) {
-                makeToast("Network Failed!")
+                makeToast("No Card Found!")
             } else {
                 imageUrlList.addAll(it.data)
 

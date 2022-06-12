@@ -1,18 +1,12 @@
-package com.example.mvvmretofitdagger2demo.views
+package com.example.mvvmretofitdagger2demo.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-import com.example.mvvmretofitdagger2demo.R
 import com.example.mvvmretofitdagger2demo.databinding.CardListBinding
 import com.example.mvvmretofitdagger2demo.model.DetailCardsModel
-import com.example.mvvmretofitdagger2demo.model.PokemonCardModel
-import com.example.mvvmretofitdagger2demo.model.PokemonDb
 
 
 class PokemonCardAdapter(private val urlList:ArrayList<DetailCardsModel>,private val openDetails: (DetailCardsModel) -> Unit):

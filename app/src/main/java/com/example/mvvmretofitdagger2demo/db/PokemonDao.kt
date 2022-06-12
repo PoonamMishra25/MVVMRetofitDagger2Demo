@@ -11,8 +11,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface PokemonDao {
 
-//    @Insert
-//    suspend fun addPokemon(pokemon:PokemonDetailModelItem)
+
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addPokemonDB(pokemon:PokemonDb)
@@ -23,13 +22,7 @@ interface PokemonDao {
     @Query("Select id from pokemon_details where name like '%' || :name || '%'")
     suspend fun getAllPokemonID(name:String):Int
 
-//    @Query("select * from pokemon_details where type1 like '%' || :type || '%'")
-//     fun getSpecificPokemon1(type:String): Flow<List<PokemonDb>>
-
     @Query("select * from pokemon_details where type1 like '%' || :type || '%'")
     fun getSpecificPokemon(type:String): List<PokemonDb>
-    //abstract fun getSpecificPokemon(): List<PokemonDb>
-//
-//    @Query("Select name from pokemon_details where types = :types")
-//    suspend fun getSpecificPokemon(types:String):List<String>
+
 }

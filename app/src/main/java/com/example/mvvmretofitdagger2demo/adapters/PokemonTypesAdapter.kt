@@ -1,11 +1,9 @@
-package com.example.mvvmretofitdagger2demo.views
+package com.example.mvvmretofitdagger2demo.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.mvvmretofitdagger2demo.databinding.FragmentListOfPokemonsBinding
-import com.example.mvvmretofitdagger2demo.databinding.ListItemBinding
 import com.example.mvvmretofitdagger2demo.databinding.PokemonListBinding
 import com.example.mvvmretofitdagger2demo.model.PokemonDb
 

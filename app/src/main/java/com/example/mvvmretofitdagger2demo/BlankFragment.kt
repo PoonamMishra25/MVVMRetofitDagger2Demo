@@ -9,13 +9,14 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+
 import com.example.mvvmretofitdagger2demo.databinding.FragmentBlankBinding
 import com.example.mvvmretofitdagger2demo.db.PokemonDatabase
 import com.example.mvvmretofitdagger2demo.model.LogoType
 import com.example.mvvmretofitdagger2demo.repository.PokemonRepository
 import com.example.mvvmretofitdagger2demo.viewmodel.MainViewModel
 import com.example.mvvmretofitdagger2demo.viewmodel.MainViewModelFactory
-import com.example.mvvmretofitdagger2demo.views.CustomAdapter
+import com.example.mvvmretofitdagger2demo.adapters.CustomAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

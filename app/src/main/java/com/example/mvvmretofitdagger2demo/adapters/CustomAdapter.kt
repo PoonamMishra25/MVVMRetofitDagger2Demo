@@ -1,7 +1,6 @@
-package com.example.mvvmretofitdagger2demo.views
+package com.example.mvvmretofitdagger2demo.adapters
 
 import android.annotation.SuppressLint
-import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
