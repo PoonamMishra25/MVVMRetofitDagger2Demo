@@ -1,4 +1,4 @@
-package com.example.mvvmretofitdagger2demo
+package com.example.mvvmretofitdagger2demo.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.mvvmretofitdagger2demo.*
 
 import com.example.mvvmretofitdagger2demo.databinding.FragmentBlankBinding
 import com.example.mvvmretofitdagger2demo.db.PokemonDatabase
@@ -79,38 +80,51 @@ class BlankFragment : Fragment() {
             }
 
         listOfPoke()
-
+openDeckList()
         return binding.root
     }
 
+    private fun openDeckList(){
+        binding.decksButton.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.containerView, DeckFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+    }
+
     private fun listOfPoke() {
-        val list1: ArrayList<String> = ArrayList()
-        CoroutineScope(Dispatchers.Main).launch {
-            list1.addAll(pokemonDatabase.pokemonDao().getAllPokemon())
-            var arrayAdapter = ArrayAdapter(
-                requireContext(),
-                android.R.layout.simple_spinner_dropdown_item,
-                list1
-            )
-            val autoComplete = binding.autoComplete
-            autoComplete.setAdapter(arrayAdapter)
+        binding.ibtnSearch.setOnClickListener {
+            binding.autoComplete.visibility=View.VISIBLE
+            val list1: ArrayList<String> = ArrayList()
+            CoroutineScope(Dispatchers.Main).launch {
+                list1.addAll(pokemonDatabase.pokemonDao().getAllPokemon())
+                var arrayAdapter = ArrayAdapter(
+                    requireContext(),
+                    android.R.layout.simple_spinner_dropdown_item,
+                    list1
+                )
+                val autoComplete = binding.autoComplete
+                autoComplete.setAdapter(arrayAdapter)
 
-            autoComplete.setOnItemClickListener { adapterView, view, i, l ->
+                autoComplete.setOnItemClickListener { adapterView, view, i, l ->
 
-                Toast.makeText(requireContext(), "Nmae-: " + list1[i], Toast.LENGTH_SHORT).show()
-                CoroutineScope(Dispatchers.IO).launch {
-                    parentFragmentManager.beginTransaction()
-                        .replace(
-                            R.id.containerView, DetailsOfPokemon.newInstance(
-                                pokemonDatabase.pokemonDao()
-                                    .getAllPokemonID(autoComplete.text.toString()),
-                                autoComplete.text.toString()
+                    Toast.makeText(requireContext(), "Name-: " + list1[i], Toast.LENGTH_SHORT)
+                        .show()
+                    CoroutineScope(Dispatchers.IO).launch {
+                        parentFragmentManager.beginTransaction()
+                            .replace(
+                                R.id.containerView, DetailsOfPokemon.newInstance(
+                                    pokemonDatabase.pokemonDao()
+                                        .getAllPokemonID(autoComplete.text.toString()),
+                                    autoComplete.text.toString()
+                                )
                             )
-                        )
-                        .addToBackStack(null)
-                        .commit()
-                }
+                            .addToBackStack(null)
+                            .commit()
+                    }
 
+                }
             }
         }
     }
