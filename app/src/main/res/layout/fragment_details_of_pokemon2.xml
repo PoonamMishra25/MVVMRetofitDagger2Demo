@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-
+    android:id="@+id/scrollLayout"
     tools:context=".DetailsOfPokemon">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/scrollLayout">
+        >
 
         <View
             android:id="@+id/lineView"
@@ -68,7 +68,7 @@
 
                     android:fontFamily="@font/amaranth"
                     android:text="Pokemon"
-                    android:textColor="#068C0B"
+                    android:textColor="#E88B02"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -122,6 +122,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Type"
+                            android:textColor="#E88B02"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -141,6 +142,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:textColor="#E88B02"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Species"
@@ -161,12 +163,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
+
                         android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Ability"
+                            android:textColor="#E88B02"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -189,6 +193,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Mega"
+                                android:textColor="#E88B02"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
 
@@ -220,6 +225,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="GenderRatio"
+                            android:textColor="#E88B02"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -241,6 +247,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Height"
+                            android:textColor="#E88B02"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -263,6 +270,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Weight"
+                            android:textColor="#E88B02"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -285,6 +293,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Ultrablast"
+                                android:textColor="#E88B02"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
 
@@ -316,6 +325,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="EvolautionStage"
+                            android:textColor="#E88B02"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -338,6 +348,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="EvolutionLine"
+                            android:textColor="#E88B02"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -361,6 +372,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Starter"
+                            android:textColor="#E88B02"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -390,6 +402,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Lagendary"
+                                android:textColor="#E88B02"
                                 android:layout_marginStart="5dp"
                                 android:textSize="16sp" />
                         </LinearLayout>
@@ -416,7 +429,18 @@
             app:spanCount="1"
             tools:listitem="@layout/card_list" />
 
+        <TextView
+            android:id="@+id/tvErrorPage3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Card Found!"
+            android:textSize="20sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/rvCards" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</FrameLayout>

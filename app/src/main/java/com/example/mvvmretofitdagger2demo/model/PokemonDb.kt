@@ -12,6 +12,4 @@ data class PokemonDb(
     var image:String,
     var pokeId:Int
 
-){
-   // constructor(name: String,type1: String,image: String,pokeId: Int): this(this.id,name, type1,image,pokeId) {  }
-}
+)

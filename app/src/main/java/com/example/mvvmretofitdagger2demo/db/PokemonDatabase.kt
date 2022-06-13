@@ -11,8 +11,7 @@ abstract class PokemonDatabase : RoomDatabase() {
 
     abstract fun pokemonDao(): PokemonDao
     abstract fun deckListDao(): DeckListDao
-    abstract fun specificCardsList(): SpecificCardsList
- //
+    abstract fun specificCardsList(): SpecificCardsListDao
 
 }
 

@@ -2,33 +2,35 @@ package com.example.mvvmretofitdagger2demo
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.bumptech.glide.Glide
-import com.example.mvvmretofitdagger2demo.model.PokemonDetailModel
-import com.example.mvvmretofitdagger2demo.model.PokemonDetailModelItem
-import com.example.mvvmretofitdagger2demo.viewmodel.MainViewModel
-import com.example.mvvmretofitdagger2demo.viewmodel.MainViewModelFactory
-import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
-//    lateinit var mainViewModel: MainViewModel
-//    lateinit var list: ArrayList<PokemonDetailModelItem>
-//
-//    @Inject
-//    lateinit var mainViewModelFactory: MainViewModelFactory
+
+
+
+//    private lateinit var tabLayout: TabLayout
+//    private lateinit var viewPager2: ViewPager2
+//    private lateinit var  tab_allPokemon :TabItem
+//    private lateinit var  tab_allDecks :TabItem
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+       // tabLayout = findViewById(R.id.tabLayout)
+//        tab_allPokemon = findViewById(R.id.mainTab)
+//        tab_allDecks =findViewById(R.id.deckTab)
+//
+//        viewPager2 = findViewById(R.id.viewPager)
+////
+//        viewPager2.adapter = PagerAdapter(this)
+//        TabLayoutMediator(tabLayout,viewPager2){
+//            tab,index->tab.text = when(index){
+//                0->{"All Pokemon"}
+//            1-> {"All Decks"}
+//            else ->{throw Resources.NotFoundException("position not found")}
+//            }
+//        }.attach()
 
-//
-//        (application as PokemonApplication).applicationComponent.inject(this)
-//
-//        mainViewModel = ViewModelProvider(this, mainViewModelFactory).get(MainViewModel::class.java)
 
     }
 }

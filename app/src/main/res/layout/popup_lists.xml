@@ -18,8 +18,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Create A New Deck List"
-            android:textColor="@color/teal_700"
+            android:textColor="#E88B02"
+            android:text="Create A New Deck "
+
             android:textStyle="bold"
 
             app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName"
@@ -33,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:ems="10"
-            android:hint="deckListName"
+            android:hint="Deck Name"
             android:inputType="textPersonName"
 
             app:layout_constraintEnd_toEndOf="parent"

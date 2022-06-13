@@ -6,16 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.mvvmretofitdagger2demo.PokemonApplication
-import com.example.mvvmretofitdagger2demo.R
+import com.example.mvvmretofitdagger2demo.adapters.PokemonTypesAdapter
 import com.example.mvvmretofitdagger2demo.databinding.FragmentListOfPokemonsBinding
 import com.example.mvvmretofitdagger2demo.db.PokemonDatabase
 import com.example.mvvmretofitdagger2demo.model.PokemonDb
 import com.example.mvvmretofitdagger2demo.repository.PokemonRepository
 import com.example.mvvmretofitdagger2demo.viewmodel.MainViewModel
 import com.example.mvvmretofitdagger2demo.viewmodel.MainViewModelFactory
-import com.example.mvvmretofitdagger2demo.adapters.PokemonTypesAdapter
-
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -42,6 +39,7 @@ class ListOfPokemons : Fragment() {
     private var _binding: FragmentListOfPokemonsBinding? = null
     private val binding: FragmentListOfPokemonsBinding get() = _binding!!
     var type: String = "Normal"
+
     //var pokeId:Int=1
     lateinit var pokemonTypesAdapter: PokemonTypesAdapter
 
@@ -64,7 +62,7 @@ class ListOfPokemons : Fragment() {
         (application).applicationComponent.injectViewModel(this)
 
         mainViewModel = ViewModelProvider(this, mainViewModelFactory).get(MainViewModel::class.java)
-        binding.tv2.text=type+" Type Pokemon"
+        binding.tv2.text = type + " Type"
         setBackColor(type)
         configureObserver1()
 
@@ -77,13 +75,13 @@ class ListOfPokemons : Fragment() {
 
         CoroutineScope(Dispatchers.Default).launch {
             pokemonTypesAdapter.setPokeList(pokemonDatabase.pokemonDao().getSpecificPokemon(type))
-arrayList.addAll(pokemonDatabase.pokemonDao().getAllPokemon())
+            arrayList.addAll(pokemonDatabase.pokemonDao().getAllPokemon())
         }
 
         binding.apply {
             //rvPoke.layoutManager = LinearLayoutManager(requireContext())
             rvPoke.adapter = pokemonTypesAdapter
-            progressBarListOfPokemon.visibility=View.GONE
+            progressBarListOfPokemon.visibility = View.GONE
         }
 
     }
@@ -91,13 +89,14 @@ arrayList.addAll(pokemonDatabase.pokemonDao().getAllPokemon())
 
     private fun openDetails(pokemonDb: PokemonDb) {
         parentFragmentManager.beginTransaction()
-            .replace(R.id.containerView, DetailsOfPokemon.newInstance(pokemonDb.id,pokemonDb.name))
+            .replace(R.id.containerView, DetailsOfPokemon.newInstance(pokemonDb.id, pokemonDb.name))
             .addToBackStack(null)
             .commit()
     }
 
     companion object {
-        val arrayList:ArrayList<String> = ArrayList()
+        val arrayList: ArrayList<String> = ArrayList()
+
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
@@ -117,8 +116,9 @@ arrayList.addAll(pokemonDatabase.pokemonDao().getAllPokemon())
             }
 
     }
-      private fun setBackColor(str:String){
-        when(str){
+
+    private fun setBackColor(str: String) {
+        when (str) {
             "Grass" -> binding.frameListTypePokemon.setBackgroundResource(R.drawable.backround)
             "Water" -> binding.frameListTypePokemon.setBackgroundResource(R.drawable.backround_water)
             "Fairy" -> binding.frameListTypePokemon.setBackgroundResource(R.drawable.backround_fairy)

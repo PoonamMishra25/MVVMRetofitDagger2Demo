@@ -19,15 +19,20 @@ class MainViewModel(private val repository: PokemonRepository):ViewModel() {
     val pokemonSpecificLiveData: LiveData<List<PokemonDb>>
         get() = repository.pokemonSpecificType
 
-    val deckListLiveData: LiveData<List<DeckListModel>>
+    val deckListLiveData: LiveData<List<String>>
         get() = repository.deckLists
+
+    val deckCardsLiveData: LiveData<List<String>>
+    get() = repository.deckCardLists
 
     val pokemonCardLiveData: LiveData<PokemonCardModel>
         get() = repository.cardPokemon
     init {
         viewModelScope.launch {
-            //repository.getPokemon()
+           // repository.getPokemon()
             repository.getDeckLists()
+//
+//getdeckCardList(2)
             repository.getPokemonService(DetailsOfPokemon.pokeId)
             repository.pokemonSer
             repository.getPokemonCardService(DetailsOfPokemon.pokeName)
@@ -39,8 +44,10 @@ class MainViewModel(private val repository: PokemonRepository):ViewModel() {
           //  repository.pokemonSpecificType
         }
     }
-//     fun getSpecificPoke(type:String){
-//        repository.getPokemonTypes(type)
-//    }
+
+     suspend fun getdeckCardList(deckId:Int){
+          repository.getDeckCardLists(deckId)
+
+    }
 
 }

@@ -17,6 +17,8 @@ interface ApplicationComponent {
    fun injectViewModel2(fragment: BlankFragment)
    fun injectDetaileFragment(fragment:DetailsOfPokemon)
    fun injectCardDetailFragment(fragment:CardDetailsPokemon)
+   fun injectDeckFragment(fragment:DeckFragment)
+   fun injectDeckCardFragment(fragment:DeckCardsFragment)
    @Component.Factory
    interface Factory{
       fun create(@BindsInstance context: Context):ApplicationComponent

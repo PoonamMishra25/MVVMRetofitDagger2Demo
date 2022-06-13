@@ -10,16 +10,21 @@
         android:id="@+id/autoComplete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:visibility="gone"
         android:textAlignment="center"
         android:hint="Search Pokemon"
-        android:drawableEnd="@drawable/ic_baseline_search_24"
-        android:layout_marginTop="5dp"
         android:textColor="@color/black"
         android:textStyle="bold"
-        android:textSize="25sp"
+        android:textSize="20sp"
 
         />
+    <ImageButton
+        android:id="@+id/ibtn_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_margin="1dp"
+        android:src="@drawable/ic_baseline_search_24"/>
 <!--    <TextView-->
 <!--        android:id="@+id/tv1"-->
 <!--        android:layout_width="match_parent"-->
@@ -37,9 +42,31 @@
       android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="40dp"
         android:padding="5dp"
         tools:listitem="@layout/list_item"
         android:id="@+id/rv_types"/>
+    <ImageButton
+        android:id="@+id/decksButton"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:src="@drawable/card_image1"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:backgroundTint="#DFD8D8"
+        android:layout_gravity="bottom|end"/>
+
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/deckFloatingBtn"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="end|bottom"-->
+<!--        android:layout_margin="4dp"-->
+<!--        android:clickable="true"-->
+<!--        android:scaleType="fitCenter"-->
+<!--        android:adjustViewBounds="true"-->
+<!--        android:backgroundTint="@color/white"-->
+<!--        android:focusable="true"-->
+<!--        android:src="@drawable/img" />-->
 
 </FrameLayout>

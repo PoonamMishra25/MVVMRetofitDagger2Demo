@@ -11,20 +11,18 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
+import com.example.mvvmretofitdagger2demo.adapters.PokemonCardAdapter
 import com.example.mvvmretofitdagger2demo.databinding.FragmentDetailsOfPokemon2Binding
 import com.example.mvvmretofitdagger2demo.model.DetailCardsModel
 import com.example.mvvmretofitdagger2demo.model.PokemonDetailModelItem
 import com.example.mvvmretofitdagger2demo.viewmodel.MainViewModel
 import com.example.mvvmretofitdagger2demo.viewmodel.MainViewModelFactory
-import com.example.mvvmretofitdagger2demo.adapters.PokemonCardAdapter
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
-
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
-
 
 
 class DetailsOfPokemon : Fragment() {
@@ -89,11 +87,11 @@ class DetailsOfPokemon : Fragment() {
         }
     }
 
-    private fun openDetails(detailCardsModel: DetailCardsModel) {
+    private fun openDetails(detailCardsModel: DetailCardsModel,position:Int) {
         parentFragmentManager.beginTransaction()
             .replace(
                 R.id.containerView,
-                CardDetailsPokemon.newInstance(detailCardsModel.images.large)
+                CardDetailsPokemon.newInstance(detailCardsModel.images.large,position)
             )
             .addToBackStack(null)
             .commit()
@@ -106,31 +104,31 @@ class DetailsOfPokemon : Fragment() {
         binding.apply {
             pokeName = item.name
             tvDetailedName.text = pokeName
-            tvSpecies.text =  item.species
+            tvSpecies.text = item.species
 
             pokeType = item.types.toString()
 
-            tvType.text =  pokeType.substring(1, pokeType.length - 1)
-            makeToast(pokeType)
+            tvType.text = pokeType.substring(1, pokeType.length - 1)
+            // makeToast(pokeType)
             if (pokeType.contains(",")) {
                 setBackColor(pokeType.substring(1, pokeType.indexOf(",")))
             } else {
                 setBackColor(pokeType.substring(1, pokeType.length - 1))
             }
             val ability = item.abilities.normal.toString()
-            tvAbility.text =  ability.substring(1, ability.length - 1)
+            tvAbility.text = ability.substring(1, ability.length - 1)
 
             val gender = item.gender.toString()
-            tvGender.text =  gender.substring(1, gender.length - 1)
+            tvGender.text = gender.substring(1, gender.length - 1)
 
-            tvHeight.text =  item.height
+            tvHeight.text = item.height
             tvWeight.text = item.weight
-            tvEvolutionStage.text =  item.family.evolutionStage.toString()
+            tvEvolutionStage.text = item.family.evolutionStage.toString()
             val evolutionLine = item.family.evolutionLine.toString()
-            tvEvolutionLine.text =  evolutionLine.substring(1, evolutionLine.length - 1)
+            tvEvolutionLine.text = evolutionLine.substring(1, evolutionLine.length - 1)
 
             if (item.starter) {
-                tvStarter.text =  item.starter.toString()
+                tvStarter.text = item.starter.toString()
             } else {
                 tvStarter.visibility = View.GONE
                 labelStarter.visibility = View.GONE
@@ -148,7 +146,7 @@ class DetailsOfPokemon : Fragment() {
                 lableUltrablast.visibility = View.GONE
             }
             if (item.mega) {
-                tvMega.text =  item.mega.toString()
+                tvMega.text = item.mega.toString()
             } else {
                 tvMega.visibility = View.GONE
                 labelMega.visibility = View.GONE
@@ -165,7 +163,6 @@ class DetailsOfPokemon : Fragment() {
         var pokeName: String = "Pidgeot"
 
 
-
         @JvmStatic
         fun newInstance(param1: Int, pokeName: String) =
             DetailsOfPokemon().apply {
@@ -179,16 +176,21 @@ class DetailsOfPokemon : Fragment() {
 
     private fun addCustomView() {
         mainViewModel.pokemonCardLiveData.observe(viewLifecycleOwner, Observer {
-            if (it == null) {
-                makeToast("No Card Found!")
-            } else {
-                imageUrlList.addAll(it.data)
 
+            imageUrlList.addAll(it.data)
+            if (imageUrlList.size > 0) {
                 pokemonCardAdapter = PokemonCardAdapter(imageUrlList, openDetails = ::openDetails)
                 binding.rvCards.apply {
 
                     adapter = pokemonCardAdapter
                 }
+            } else {
+                binding.tvErrorPage3.apply {
+                    visibility = View.VISIBLE
+                    text = "Cards Not found!"
+                }
+
+
             }
         })
 
@@ -217,9 +219,7 @@ class DetailsOfPokemon : Fragment() {
         }
     }
 
-    private fun makeToast(str: String) {
-        Toast.makeText(requireContext(), str, Toast.LENGTH_SHORT).show()
-    }
+
 
     override fun onDestroy() {
         super.onDestroy()

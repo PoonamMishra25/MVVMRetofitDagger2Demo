@@ -7,11 +7,11 @@ import androidx.room.Query
 import com.example.mvvmretofitdagger2demo.model.SavedCardModel
 
 @Dao
-interface SpecificCardsList {
+interface SpecificCardsListDao {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addCards(savedCardModel: SavedCardModel)
 
-    @Query("Select * from deckCardList ")
-    suspend fun getAllSpecificCards():List<SavedCardModel>
+    @Query("Select deckUrl from deckCardList  where deckListId = :deckId")
+    suspend fun getAllSpecificCards(deckId : Int):List<String>
 }

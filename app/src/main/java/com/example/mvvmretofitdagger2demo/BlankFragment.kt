@@ -1,4 +1,4 @@
-package com.example.mvvmretofitdagger2demo.fragments
+package com.example.mvvmretofitdagger2demo
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,30 +9,22 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.mvvmretofitdagger2demo.*
-
+import com.example.mvvmretofitdagger2demo.adapters.CustomAdapter
 import com.example.mvvmretofitdagger2demo.databinding.FragmentBlankBinding
 import com.example.mvvmretofitdagger2demo.db.PokemonDatabase
 import com.example.mvvmretofitdagger2demo.model.LogoType
 import com.example.mvvmretofitdagger2demo.repository.PokemonRepository
 import com.example.mvvmretofitdagger2demo.viewmodel.MainViewModel
 import com.example.mvvmretofitdagger2demo.viewmodel.MainViewModelFactory
-import com.example.mvvmretofitdagger2demo.adapters.CustomAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [BlankFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class BlankFragment : Fragment() {
 
     private var _binding: FragmentBlankBinding? = null
@@ -80,11 +72,11 @@ class BlankFragment : Fragment() {
             }
 
         listOfPoke()
-openDeckList()
+        openDeckList()
         return binding.root
     }
 
-    private fun openDeckList(){
+    private fun openDeckList() {
         binding.decksButton.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.containerView, DeckFragment())
@@ -95,11 +87,11 @@ openDeckList()
 
     private fun listOfPoke() {
         binding.ibtnSearch.setOnClickListener {
-            binding.autoComplete.visibility=View.VISIBLE
+            binding.autoComplete.visibility = View.VISIBLE
             val list1: ArrayList<String> = ArrayList()
             CoroutineScope(Dispatchers.Main).launch {
                 list1.addAll(pokemonDatabase.pokemonDao().getAllPokemon())
-                var arrayAdapter = ArrayAdapter(
+                val arrayAdapter = ArrayAdapter(
                     requireContext(),
                     android.R.layout.simple_spinner_dropdown_item,
                     list1
@@ -139,16 +131,6 @@ openDeckList()
 
     companion object {
 
-
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment BlankFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             BlankFragment().apply {

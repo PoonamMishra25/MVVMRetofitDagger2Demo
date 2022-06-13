@@ -13,7 +13,7 @@ interface PokemonDao {
 
 
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addPokemonDB(pokemon:PokemonDb)
 
     @Query("Select name from pokemon_details ")

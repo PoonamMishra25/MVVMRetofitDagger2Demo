@@ -1,44 +1,37 @@
 package com.example.mvvmretofitdagger2demo.adapters
 
 import android.annotation.SuppressLint
+import android.content.Context
+import androidx.appcompat.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mvvmretofitdagger2demo.databinding.ListItemBinding
-import com.example.mvvmretofitdagger2demo.model.LogoType
+import com.bumptech.glide.Glide
+import com.example.mvvmretofitdagger2demo.R
+import com.example.mvvmretofitdagger2demo.databinding.CardListBinding
 
 
-class CustomAdapter(
-    private val mList: MutableList<LogoType> = mutableListOf(),
-    private val openDetails: (String) -> Unit
-) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+class CustomCardsAdapter(
+    private val mList: List<String>,
+    private val openDetail: (String)-> Unit
+) : RecyclerView.Adapter<CustomCardsAdapter.ViewHolder>() {
 
-    fun setList(list: List<LogoType>) {
-        mList.clear()
-        mList.addAll(list)
-        notifyDataSetChanged()
-    }
 
     inner class ViewHolder(
-        private val binding: ListItemBinding
+        private val binding: CardListBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
-        fun bind(logoType: LogoType) {
+        fun bind(str: String) {
 
-
-            binding.tvType.text = logoType.type
-            binding.ivIcons.setImageResource(logoType.icon)
-
+            if (str.isNotEmpty()) {
+                Glide.with(binding.ivCardImage).load(str.toString()).into(binding.ivCardImage)
+            } else {
+                binding.ivCardImage.setImageResource(R.drawable.poke_ball)
+            }
 
             binding.root.setOnClickListener {
-//                val colors = intArrayOf(-0xdaa887, -0x593f33)
-//                val gradientDrawable = GradientDrawable(
-//                    GradientDrawable.Orientation.TOP_BOTTOM, colors
-//                )
-//                l.setBackground(gradientDrawable)
-                openDetails(logoType.type)
-
+openDetail(str)
 
             }
         }
@@ -47,7 +40,7 @@ class CustomAdapter(
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(
-            ListItemBinding.inflate(
+            CardListBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false

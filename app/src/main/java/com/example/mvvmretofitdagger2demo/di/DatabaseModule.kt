@@ -23,8 +23,8 @@ class DatabaseModule {
     fun providePokemonDB(context:Context):PokemonDatabase{
         return Room.databaseBuilder(context,PokemonDatabase::class.java,
             "pokemonCard")
-           // .createFromAsset("database/pokemonDb1.db")
-          .addMigrations(MIGRATION_2_3,MIGRATION_3_4)
+            .createFromAsset("database/pokemonCard.db")
+          //.addMigrations(MIGRATION_2_3,MIGRATION_3_4)
             .build()
     }
     val MIGRATION_2_3: Migration = object : Migration(2,3) {

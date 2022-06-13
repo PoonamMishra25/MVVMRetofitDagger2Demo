@@ -8,11 +8,11 @@ import com.example.mvvmretofitdagger2demo.model.DeckListModel
 @Dao
 interface DeckListDao {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addDeckLists(deckName:DeckListModel)
 
-    @Query("select * from deckLists")
-    suspend fun getAllLists():List<DeckListModel>
+    @Query("select deckListName from deckLists")
+    suspend fun getAllLists():List<String>
 
     @Query("select deckListId from deckLists where deckListName = :deckName ")
     suspend fun getIds(deckName: String):Int

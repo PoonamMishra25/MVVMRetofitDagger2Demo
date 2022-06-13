@@ -30,8 +30,12 @@ class PokemonRepository @Inject constructor(
     val cardPokemon :LiveData<PokemonCardModel>
     get() = _cardPokemon
 
-    private val _allDeckList = MutableLiveData<List<DeckListModel>>()
-    val deckLists :LiveData<List<DeckListModel>>
+    private val _allDeckList = MutableLiveData<List<String>>()
+    val deckLists :LiveData<List<String>>
+        get() = _allDeckList
+
+    private val _allDeckCardList = MutableLiveData<List<String>>()
+    val deckCardLists :LiveData<List<String>>
         get() = _allDeckList
 
     private val _pokemonSpecificType = MutableLiveData<List<PokemonDb>>()
@@ -40,6 +44,9 @@ class PokemonRepository @Inject constructor(
 
     suspend fun getDeckLists(){
         _allDeckList.postValue(pokemonDatabase.deckListDao().getAllLists())
+    }
+    suspend fun getDeckCardLists(deckID:Int) {
+          _allDeckList.postValue(pokemonDatabase.specificCardsList().getAllSpecificCards(deckID))
     }
 
 
@@ -76,7 +83,7 @@ class PokemonRepository @Inject constructor(
     suspend fun getPokemon() {
         coroutineScope {
             launch {
-                for (i in 1..300) {
+                for (i in 808..840) {
                     val result = apiService.getPokemon(i)
                     if (result.isSuccessful && result.body() != null) {
 

@@ -42,6 +42,7 @@
             android:id="@+id/rv_poke"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:layout_marginTop="15dp"
             tools:listitem="@layout/pokemon_list"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="2"

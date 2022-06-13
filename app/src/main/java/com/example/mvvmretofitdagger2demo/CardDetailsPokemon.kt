@@ -10,6 +10,7 @@ import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.example.mvvmretofitdagger2demo.databinding.FragmentCardDetailsPokemonBinding
 import com.example.mvvmretofitdagger2demo.db.PokemonDatabase
@@ -24,22 +25,17 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [CardDetailsPokemon.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class CardDetailsPokemon : Fragment() {
-    // TODO: Rename and change types of parameters
+
     private var param1: String? = null
     private var param2: String? = null
     var url: String = ""
-
+var position:Int=0
     lateinit var listAdapter: ArrayAdapter<String>
 
     @Inject
@@ -69,42 +65,35 @@ class CardDetailsPokemon : Fragment() {
 
         mainViewModel = ViewModelProvider(this, mainViewModelFactory).get(MainViewModel::class.java)
         url = arguments?.getString("ImageUrl")!!
-
+        position = arguments?.getInt("pos")!!
         Glide.with(binding.oneCardDetails).load(url).into(binding.oneCardDetails)
-
-
+var a =position
+        setUpViews(position)
 
         binding.floatingActionButton2.setOnClickListener {
 
-            binding.progressBar.visibility = View.GONE
+
             var alertDialog: AlertDialog
             val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
             val view1 = layoutInflater.inflate(R.layout.decks_list, null)
 
-            val btn_add: ImageButton = view1.findViewById(R.id.btn_add)
-
+            val swipeRefreshLayout:SwipeRefreshLayout = view1.findViewById(R.id.swipe_deckPop)
+            val btn_add: Button = view1.findViewById(R.id.btn_add)
+            val btnCancel = view1.findViewById<ImageButton>(R.id.btn_cancel1)
             val listView: ListView = view1.findViewById(R.id.lv_deckPlayList)
             builder.setView(view1)
             alertDialog = builder.create()
             alertDialog.show()
-            mainViewModel.deckListLiveData.observe(viewLifecycleOwner, Observer {
-                val list: ArrayList<String> = ArrayList()
-                for (i in 0..(it.size - 1)) {
-                    list.add(it[i].deckListName)
-                }
-                listAdapter =
-                    ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, list)
-                listView.adapter = listAdapter
+            populateListView(listView)
+            btnCancel.setOnClickListener { alertDialog.dismiss() }
+            swipeRefreshLayout.setOnRefreshListener {
+                populateListView(listView)
+            }
 
-            })
-            if (listView.size < 0) {
-                makeToast("No List Found!  Please create a new list")
-            } else {
+
                 listView.setOnItemClickListener { adapterView, view, i, l ->
 
                     CoroutineScope(Dispatchers.Main).launch {
-
-
                         pokemonDatabase.specificCardsList().addCards(
                             SavedCardModel(
                                 url,
@@ -112,18 +101,18 @@ class CardDetailsPokemon : Fragment() {
                                     .getIds(adapterView.getItemAtPosition(i).toString())
                             )
                         )
-                        var alertDialog1 = alertDialog
+
                         val view3 = layoutInflater.inflate(R.layout.tick, null)
                         val tickImage: ImageView = view3.findViewById(R.id.iv_tick)
 
                         builder.setView(view3)
-                        alertDialog1 = builder.create()
+                        val alertDialog1: AlertDialog = builder.create()
                         alertDialog1.show()
                         Glide.with(requireContext()).load(R.drawable.tick).into(tickImage)
                         delay(2000)
                         alertDialog1.dismiss()
-                        makeToast("Card Added to your Deck!")
-                    }
+
+
 
 
                 }
@@ -156,7 +145,7 @@ class CardDetailsPokemon : Fragment() {
                             alertDialog1 = builder.create()
                             alertDialog1.show()
                             Glide.with(requireContext()).load(R.drawable.tick).into(tickImage)
-                            makeToast("List is Created Successfully")
+                          //  makeToast("List is Created Successfully")
                             delay(2000)
                             alertDialog.dismiss()
                             alertDialog1.dismiss()
@@ -168,46 +157,66 @@ class CardDetailsPokemon : Fragment() {
             }
 
         }
-        // Inflate the layout for this fragment
         return binding.root
     }
 
-    private fun alertDialog(
-        builder: AlertDialog.Builder,
-        alertDialog: AlertDialog
-    ) {
-        var alertDialog1 = alertDialog
-        val view3 = layoutInflater.inflate(R.layout.tick, null)
-        val tickImage: ImageView = view3.findViewById(R.id.iv_tick)
+    private fun populateListView(listView: ListView) {
+        mainViewModel.deckListLiveData.observe(viewLifecycleOwner, Observer {
 
-        builder.setView(view3)
-        alertDialog1 = builder.create()
-        alertDialog1.show()
-        Glide.with(requireContext()).load(R.drawable.tick).into(tickImage)
+            listAdapter =
+                ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, it)
+            listView.adapter = listAdapter
 
+        })
     }
 
+    private fun setUpViews(pos:Int){
+    mainViewModel.pokemonCardLiveData.observe(viewLifecycleOwner, Observer {
+        binding.tvCardAttacks.text= it.data[pos].attacks[0].name
+        binding.tvCardDamage.text= it.data[pos].attacks[0].damage
+       val rule =it.data[pos].attacks[0].text
+        if(rule.isNullOrBlank()){
+            binding.card1.visibility=View.GONE
+        }else{
+            binding.tvCardText.text=rule
 
-    private fun makeToast(str: String) {
-        Toast.makeText(requireContext(), str, Toast.LENGTH_LONG).show()
-    }
+        }
+
+        binding.tvCardHP.text = it.data[pos].hp
+        binding.tvCardName.text = it.data[pos].name
+        val type =it.data[pos].types.toString()
+        binding.tvCardType.text = type.substring(1,type.length-1)
+        binding.tvCardWeakness.text = it.data[pos].weaknesses[0].type
+        val desc =it.data[pos].flavorText
+        if(desc.isNullOrBlank()) {
+            binding.card2.visibility=View.GONE
+        }else{
+            binding.tvCardFlavourText.text = desc
+
+        }
+        val evolveFrom = it.data[pos].evolvesFrom
+        if(evolveFrom.isNullOrBlank()){
+            binding.tvEvolveFrom.visibility=View.GONE
+            binding.labelEvolve.visibility = View.GONE
+        }else{
+
+            binding.tvEvolveFrom.text=evolveFrom
+        }
+
+    })
+}
+
+
+
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CardDetailsPokemon.
-         */
-        // TODO: Rename and change types and number of parameters
+
         @JvmStatic
-        fun newInstance(param1: String) =
+        fun newInstance(param1: String,position:Int) =
             CardDetailsPokemon().apply {
                 arguments = Bundle().apply {
                     putString("ImageUrl", param1)
-
+                putInt("pos",position)
                 }
             }
     }
