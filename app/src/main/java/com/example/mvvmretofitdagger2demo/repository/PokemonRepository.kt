@@ -33,10 +33,10 @@ class PokemonRepository @Inject constructor(
     private val _allDeckList = MutableLiveData<List<String>>()
     val deckLists :LiveData<List<String>>
         get() = _allDeckList
-
-    private val _allDeckCardList = MutableLiveData<List<String>>()
-    val deckCardLists :LiveData<List<String>>
-        get() = _allDeckList
+//
+//    private val _allDeckCardList = MutableLiveData<List<String>>()
+//    val deckCardLists :LiveData<List<String>>
+//        get() = _allDeckList
 
     private val _pokemonSpecificType = MutableLiveData<List<PokemonDb>>()
     val pokemonSpecificType: LiveData<List<PokemonDb>>
@@ -57,33 +57,32 @@ class PokemonRepository @Inject constructor(
                 val result = apiService.getPokemon(numb)
                 if (result.isSuccessful && result.body() != null) {
                     _pokemonSer.postValue(result.body()!!.get(0))
-                   // _allPokemon.postValue(result.body()[0].name)
+
                 }
 
             }
         }
 
     }
-
-    suspend fun getPokemonCardService(pokemonName :String) {
-//        coroutineScope {
-//            launch {
-
-                val result = apiService.getCardDetials(Constants.BASE_URL2+pokemonName)
+//Calling 2nd Api
+    suspend fun getPokemonCardService(pokemonName :String)
+    {
+                val result = apiService.getCardDetials(Constants.BASE_URL2+ pokemonName)
                 if (result.isSuccessful && result.body() != null) {
                     _cardPokemon.postValue(result.body()!!)
-                }else{
+                }
+                else{
                    Log.d("****","Error Occurred!")
                 }
 
-//            }
-//        }
+
 
     }
+    //Add to database
     suspend fun getPokemon() {
         coroutineScope {
             launch {
-                for (i in 808..840) {
+                for (i in 1..1000) {
                     val result = apiService.getPokemon(i)
                     if (result.isSuccessful && result.body() != null) {
 
@@ -101,7 +100,7 @@ class PokemonRepository @Inject constructor(
                                 result.body()!![0].family.id
                             )
                         )
-                        // _pokemon.postValue(result.body()!!.get(0))
+
                     }
 
                 }

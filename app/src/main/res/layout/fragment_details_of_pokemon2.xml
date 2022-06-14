@@ -27,10 +27,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-
             android:elevation="10dp"
             app:cardCornerRadius="8dp"
-
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/lineView">
@@ -390,6 +388,7 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:textColor="#E88B02"
                                 android:id="@+id/label_legendary"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -402,7 +401,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Lagendary"
-                                android:textColor="#E88B02"
+
                                 android:layout_marginStart="5dp"
                                 android:textSize="16sp" />
                         </LinearLayout>

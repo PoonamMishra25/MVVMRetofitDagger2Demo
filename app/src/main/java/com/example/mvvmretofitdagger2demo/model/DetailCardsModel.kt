@@ -15,3 +15,32 @@ data class DetailCardsModel(
     val types: List<String>,
     val weaknesses: List<Weaknesse>
 )
+
+data class Ability(
+    val name: String,
+    val text: String,
+    val type: String
+)
+
+data class Attack(
+    val convertedEnergyCost: Int,
+    val cost: List<String>,
+    val damage: String,
+    val name: String,
+    val text: String
+)
+
+data class Images(
+    val large: String,
+    val small: String
+)
+
+data class Resistance(
+    val type: String,
+    val value: String
+)
+
+data class Weaknesse(
+    val type: String,
+    val value: String
+)

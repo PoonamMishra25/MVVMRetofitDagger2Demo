@@ -71,22 +71,23 @@ class DeckFragment : Fragment() {
         }
 
         createNewDeck()
+        //Listview clickListner
         binding.deckLists.setOnItemClickListener { adapterView, view, i, l ->
 
-                var pokeid = runBlocking {
+                val pokeid = runBlocking {
                      pokemonDatabase.deckListDao().getIds(adapterView.getItemAtPosition(i).toString())
 
                 }
 
             parentFragmentManager.beginTransaction()
                 .replace(com.example.mvvmretofitdagger2demo.R.id.containerView, DeckCardsFragment.
-                    newInstance(pokeid))
+                    newInstance(pokeid,adapterView.getItemAtPosition(i).toString()))
                 .addToBackStack(null)
                 .commit()
         }
         return binding.root
     }
-
+//populating listview
     private fun listItems() {
         mainViewModel.deckListLiveData.observe(viewLifecycleOwner, Observer {
             if (it.size > 0) {
@@ -102,10 +103,10 @@ class DeckFragment : Fragment() {
 
         })
     }
-
+//Create a dialog to create new Deck
     private fun createNewDeck() {
         binding.btnNewDeck.setOnClickListener {
-            var alertDialog: AlertDialog
+            val alertDialog: AlertDialog
             val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
             val view2 = layoutInflater.inflate(
                 com.example.mvvmretofitdagger2demo.R.layout.popup_lists,
@@ -158,15 +159,7 @@ class DeckFragment : Fragment() {
 
     companion object {
         var deckListId:Int =1
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DeckFragment.
-         */
-        // TODO: Rename and change types and number of parameters
+
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             DeckFragment().apply {

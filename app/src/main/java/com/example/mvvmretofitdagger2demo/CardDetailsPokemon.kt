@@ -67,7 +67,7 @@ var position:Int=0
         url = arguments?.getString("ImageUrl")!!
         position = arguments?.getInt("pos")!!
         Glide.with(binding.oneCardDetails).load(url).into(binding.oneCardDetails)
-var a =position
+
         setUpViews(position)
 
         binding.floatingActionButton2.setOnClickListener {
@@ -137,12 +137,11 @@ var a =position
 
                             pokemonDatabase.deckListDao()
                                 .addDeckLists(DeckListModel(editText.text.toString()))
-                            var alertDialog1 = alertDialog
                             val view3 = layoutInflater.inflate(R.layout.tick, null)
                             val tickImage: ImageView = view3.findViewById(R.id.iv_tick)
 
                             builder.setView(view3)
-                            alertDialog1 = builder.create()
+                            val alertDialog1: AlertDialog = builder.create()
                             alertDialog1.show()
                             Glide.with(requireContext()).load(R.drawable.tick).into(tickImage)
                           //  makeToast("List is Created Successfully")

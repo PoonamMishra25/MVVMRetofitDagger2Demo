@@ -26,19 +26,5 @@ class NetworkModule {
     fun provideApiService(retrofit: Retrofit):ApiService{
         return retrofit.create(ApiService::class.java)
     }
-    ////https://api.pokemontcg.io/v2/cards?q=name:pikachu
-//    @Singleton
-//    @Provides
-//    fun provideCardRetrofit():Retrofit{
-//        return Retrofit.Builder()
-//            .baseUrl("https://api.pokemontcg.io/v2/")
-//            .addConverterFactory(GsonConverterFactory.create())
-//            .build()
-//
-//    }
-//    @Singleton
-//    @Provides
-//    fun provideCardApiService(retrofit: Retrofit):ApiService{
-//        return retrofit.create(ApiService::class.java)
-//    }
+
 }

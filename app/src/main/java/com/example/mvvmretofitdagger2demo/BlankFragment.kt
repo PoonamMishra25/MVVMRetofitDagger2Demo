@@ -115,6 +115,7 @@ class BlankFragment : Fragment() {
                             .addToBackStack(null)
                             .commit()
                     }
+                    autoComplete.setText("")
 
                 }
             }
